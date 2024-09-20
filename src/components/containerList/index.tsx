@@ -1,4 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function ContainerList(children: any) {
-  return children;
+import { ContainerHome } from "./style";
+
+//Qualquerr tipo de conteúdo redenrizado
+export function ContainerLayout({ children }: { children: React.ReactNode }) {
+  return <ContainerHome>{children}</ContainerHome>;
 }
