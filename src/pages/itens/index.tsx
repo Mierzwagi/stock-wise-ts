@@ -1,6 +1,6 @@
-import { Flex, Select } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { List } from "../../components/list/intex";
-import { DenominacaoH4 } from "./style";
+import { DenominacaoH4, SelectInput } from "./style";
 
 const salas = [
   { value: "sala1", label: "sala1" },
@@ -12,11 +12,11 @@ export function Itens() {
   return (
     <Flex direction="column" gap="1rem">
       <Flex justify="center">
-        <Select placeholder="SALA" variant="filled" size="md" w="15%" bg="#C67DFF">
+        <SelectInput placeholder="SALA" variant="filled" size="md" w="15%">
           {salas.map((options) => (
             <option value={options.value}>{options.label}</option>
           ))}
-        </Select>
+        </SelectInput>
       </Flex>
       <Flex direction="column" gap="1rem" align="flex-start">
         <h2>Nome Sala</h2>
