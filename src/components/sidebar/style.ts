@@ -8,10 +8,15 @@ export const SidebarContainer = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(45deg, var(--purple-100), var(--purple-400), var(--purple-500));
+  background-image: linear-gradient(
+    45deg,
+    var(--purple-100),
+    var(--purple-400),
+    var(--purple-600)
+  );
   border-radius: 0 20px 0 20px;
 
-  button{
+  button {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -19,8 +24,17 @@ export const SidebarContainer = styled.aside`
     justify-content: center;
     align-items: center;
 
-    &:hover{
-      background-color: #9D4EDD;
+    &:hover {
+      background-color: #9d4edd;
     }
   }
+`;
+
+export const IconsContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 `;

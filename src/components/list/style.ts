@@ -6,6 +6,12 @@ export const ListContainer = styled.div`
   width: 100%;
   /* gap: 2rem; */
   justify-content: space-around;
+
+  button{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `;
 
 export const DenominacaoDiv = styled.div`
