@@ -1,7 +1,7 @@
 import { Image, Trash } from "@phosphor-icons/react";
 import { DenominacaoDiv, DivContainer, ListContainer } from "./style";
 import { useEffect, useState } from "react";
-import { listItens, Item } from "../../endpoints";
+import { listItens, Item } from "../../server/endpoints";
 
 export function List() {
   //guandando os dados na lista
