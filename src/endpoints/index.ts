@@ -1,18 +1,16 @@
 import api from "../../conectionsAPI/api";
 
-interface Item {
+export interface Item {
   externalId: number;
+  nome: string;
   dataDeIncorporacao: string;
   salaId: string;
   url: string;
 }
 
-export const listItens = async (
-  page?: string,
-  limit?: string
-): Promise<Item[]> => {
+export const listItens = async (page?:string, limit?:string): Promise<Item[]> => {
   const response = await api.get(
-    `/itens?page=${page || 1}&limit=${limit || 10}`
+    `/itens?page=${page}&limit=${limit || 10}`
   );
   return response.data.data;
 };
@@ -29,7 +27,7 @@ export const listSalas = async (): Promise<Sala[]> => {
   return response.data.data;
 };
 
-export const listItensSalas = async (localizacao:string): Promise<Item[]> => {
-    const response = await api.get(`/salas/${localizacao}/itens`);
+export const listItensSalas = async (): Promise<Item[]> => {
+    const response = await api.get(`/itens`);
   return response.data.data;
 }

@@ -1,15 +1,16 @@
-import { Flex } from "@chakra-ui/react";
+
 import { Sidebar } from "../components/sidebar";
 import { ContainerLayout } from "../components/containerList";
 import { Outlet } from "react-router-dom";
+import { DefaultConatiner } from "./style";
 
 export function Default() {
   return (
-    <Flex align="center" h="calc(100vh - 4rem)" margin="2rem 2rem" gap="2rem">
+    <DefaultConatiner>
       <Sidebar />
       <ContainerLayout>
         <Outlet />
       </ContainerLayout>
-    </Flex>
+    </DefaultConatiner>
   );
 }
