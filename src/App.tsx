@@ -1,5 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import { Router } from "./router";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 import { GlobalStyle } from "./style/global";
 import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "./theme/theme";
@@ -9,15 +9,18 @@ import { Suspense } from "react";
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      
       <Suspense fallback={<div>Carregando...</div>}>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
+        <RouterProvider router={router}/>
       </Suspense>
       <GlobalStyle />
     </ThemeProvider>
   );
 }
 
-export default App;
+export default App
+
+
+
+{/* <HashRouter>
+      <Router />
+    </HashRouter> */}

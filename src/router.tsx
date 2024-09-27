@@ -1,18 +1,27 @@
-import { Route, Routes } from "react-router-dom";
-
+import { createBrowserRouter } from "react-router-dom";
 
 import { Itens } from "./pages/app/itens";
-import { Default } from "./layout/default";
+import { Default } from "./pages/layout/appLayout/default";
 import { Users } from "./pages/app/users";
-// import { Users } from "./pages/users";
+import Auth from "./pages/layout/authLayout/auth";
+import { SignIn } from "./pages/auth/signIn";
+import { SignUp } from "./pages/auth/signUp";
 
-export function Router() {
-  return (
-    <Routes>
-      <Route path="/" element={<Default />}>
-        <Route path="/itens" element={<Itens />} />
-        <Route path="/users" element={<Users />} />
-      </Route>
-    </Routes>
-  );
-}
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Default />,
+    children: [
+      { path: "/", element: <Itens /> },
+      { path: "/users", element: <Users /> },
+    ],
+  },
+  {
+    path: "/",
+    element: <Auth />,
+    children: [
+      { path: "/signUp", element: <SignUp /> },
+      { path: "/signIn", element: <SignIn /> },
+    ],
+  },
+]);

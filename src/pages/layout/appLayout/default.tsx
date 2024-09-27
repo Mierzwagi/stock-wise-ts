@@ -1,6 +1,5 @@
-
-import { Sidebar } from "../components/sidebar";
-import { ContainerLayout } from "../components/containerList";
+import { Sidebar } from "../../../components/sidebar";
+import { ContainerLayout } from "../../../components/containerList";
 import { Outlet } from "react-router-dom";
 import { DefaultConatiner } from "./style";
 

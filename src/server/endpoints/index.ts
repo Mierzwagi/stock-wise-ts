@@ -15,6 +15,15 @@ export const listItens = async (page?:string, limit?:string): Promise<Item[]> =>
   return response.data.data;
 };
 
+export interface Pageable<T> {
+  data: T[];
+  totalItems: number;
+  totalPages: number;
+  currentPage: number;
+}
+
+//Pageable<Itens>
+
 interface Sala {
   id: number;
   localizacao: number;
