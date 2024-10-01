@@ -1,16 +1,21 @@
 import { Image, Trash } from "@phosphor-icons/react";
+import { Item } from "../../server/endpoints";
 import { DenominacaoDiv, DivContainer, ListContainer } from "./style";
-import { useEffect, useState } from "react";
-import { listItens, Item } from "../../server/endpoints";
 
-export function List() {
-  //guandando os dados na lista
+//Recebendo a lista de Itens por Props
+interface ItensProps {
+  itens: Item[];
+}
+
+//React Functional Component onde recebe propriedades
+export const List: React.FC<ItensProps> = ({ itens }) => {
+  /*  //guandando os dados na lista
   const [itens, setItens] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  //const [limit, setLimit] = useState<number>(10);
+  //const [limit, setLimit] = useState<number>(10); */
 
-  const fetchData = async () => {
+  /* const fetchData = async () => {
     try {
       const response = await listItens();
       console.log(response);
@@ -35,46 +40,37 @@ export function List() {
 
   if (error) {
     return <p>Erro: {error}</p>;
+  } */
+
+  if (!Array.isArray(itens) || itens.length === 0) {
+    return <p>Sem itens nesta sala</p>;
   }
 
   return (
     <>
-      {itens.map((item) => (
-        <ListContainer>
-          <DivContainer key={item.externalId}>
-            <strong>{item.externalId}</strong>
-          </DivContainer>
-          <DenominacaoDiv>
-            <strong>{item.nome}</strong>
-          </DenominacaoDiv>
-          <DivContainer>
-            <strong>{item.dataDeIncorporacao}</strong>
-          </DivContainer>
-          <button>
-            <Image size={40} color="#5907AF" />
-          </button>
-        </ListContainer>
-      ))}
+      {itens.length === 0 ? (
+        <p>Sem itens nesta sala</p>
+      ) : (
+        itens.map((item) => (
+          <ListContainer key={item.externalId}>
+            <DivContainer>
+              <strong>{item.externalId}</strong>
+            </DivContainer>
+            <DenominacaoDiv>
+              <strong>{item.nome}</strong>
+            </DenominacaoDiv>
+            <DivContainer>
+              <strong>{item.dataDeIncorporacao}</strong>
+            </DivContainer>
+            <button>
+              <Image size={40} color="#5907AF" />
+            </button>
+          </ListContainer>
+        ))
+      )}
     </>
   );
-
-  /* return (
-    <ListContainer>
-      <DivContainer>
-        <strong>111111</strong>
-      </DivContainer>
-      <DenominacaoDiv>
-        <strong>MESA P/INFORMÁTICA 1600MM ÁRTICO DC-1661/ LACHI</strong>
-      </DenominacaoDiv>
-      <DivContainer>
-        <strong>111111</strong>
-      </DivContainer>
-      <button>
-        <Image size={40} color="#5907AF" />
-      </button>
-    </ListContainer>
-  ); */
-}
+};
 
 export function ListUser() {
   return (
