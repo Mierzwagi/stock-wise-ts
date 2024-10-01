@@ -24,15 +24,15 @@ export interface Pageable<T> {
 
 //Pageable<Itens>
 
-interface Sala {
+export interface Sala {
   id: number;
   localizacao: number;
   nome: string;
   quantidadeDeItens: string;
 }
 
-export const listSalas = async (): Promise<Sala[]> => {
-  const response = await api.get(`/salas`);
+export const listSalas = async (page: number = 1, limit: number = 100): Promise<Sala[]> => {
+  const response = await api.get(`/salas?page=${page}&limit=${limit}`);
   return response.data.data;
 };
 
