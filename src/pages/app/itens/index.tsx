@@ -1,48 +1,111 @@
+import { useEffect, useState } from "react";
 import { List } from "../../../components/list";
+import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
-  DenominacaoH4,
   IntensListContainer,
   ItensContainer,
-  ItensTitle,
   SelectContainer,
-  SelectInput,
+  SelectInput
 } from "./style";
 
-const salas = [
-  { value: "sala1", label: "sala1" },
-  { value: "sala2", label: "sala2" },
-  { value: "sala3", label: "sala3" },
-  { value: "sala4", label: "sala4" },
-];
-
 export function Itens() {
+  const [salas, setSalas] = useState<Sala[]>([]);
+  const [itens, setItens] = useState<Item[]>([]);
+  const [selectSala, setSelectSala] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fechtData = async () => {
+    try {
+      //todas as salas recuperadas da API e armazenadas em Sala[]
+      let allSalas: Sala[] = [];
+      let page = 1;
+      ////iniciando o loop
+      let hasMore = true;
+
+      //o loop irá continuar até não haver mais salas para recuperar (hasMore === false)
+      while (hasMore) {
+        const response = await listSalas(page);
+        console.log(response);
+
+        //Verifica se a API retornou alguma sala
+        if (response.length > 0) {
+          //As salas retornadas são armazenadas em allSalas e todos os 'elementos' ...response serão add nela
+          allSalas = [...allSalas, ...response];
+          page++;
+        } else {
+          hasMore = false;
+        }
+      }
+
+      setSalas(allSalas);
+    } catch (error) {
+      const typedError = error as Error;
+      setError(typedError.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //Item da sala selecionada
+  const fetchItens = async (salaId: string) => {
+    setLoading(true);
+    try {
+      const response = await listItens(salaId);
+      setItens(response);
+    } catch (error) {
+      const typedError = error as Error;
+      setError(typedError.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fechtData();
+  }, []);
+
+  if (loading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (error) {
+    return <p>Erro: {error}</p>;
+  }
+
+  //Criando a função para quando o usuário selecionar a sela
+  const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const salaId = e.target.value;
+    setSelectSala(salaId); 
+    fetchItens(salaId); // Buscar itens da sala selecionada
+  };
+
+  if (loading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (error) {
+    return <p>Erro: {error}</p>;
+  }
+
   return (
     <ItensContainer>
       <SelectContainer>
-        <SelectInput>
+        <SelectInput value={selectSala} onChange={handleSalaChange}>
           <option value="" hidden>
             Selecionar sala
           </option>
-          {salas.map((options) => (
-            <option value={options.value}>{options.label}</option>
+          {salas.map((sala) => (
+            <option key={sala.id} value={sala.id}>
+              {sala.nome}
+            </option>
           ))}
         </SelectInput>
       </SelectContainer>
 
       <IntensListContainer>
-        <h2>Nome Sala</h2>
-        <ItensTitle>
-          <h4>Nº Inventário</h4>
-          <DenominacaoH4>Denominação</DenominacaoH4>
-          <h4>Incorporação</h4>
-          <h4>Foto</h4>
-        </ItensTitle>
-        <List />
-        {/* <List />
-        <List />
-        <List />
-        <List />
-        <List /> */}
+        <h2>Itens da Sala</h2>
+        <List itens={itens}/>
       </IntensListContainer>
     </ItensContainer>
   );

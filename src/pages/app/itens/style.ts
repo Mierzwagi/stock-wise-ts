@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const ItensContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  margin: 1rem 0;
 `;
 
 export const SelectContainer = styled.div`
@@ -52,7 +50,6 @@ export const IntensListContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  gap: 1rem;
 `;
 
 export const ItensTitle = styled.div`
