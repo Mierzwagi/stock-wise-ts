@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const SignContainer = styled.main`
   width: 100%;
   height: 100vh;
@@ -23,15 +22,10 @@ interface BackgroundDivProps {
 }
 
 export const BackgroundDiv = styled.div<BackgroundDivProps>`
-  background-image: linear-gradient(
-    45deg,
-    var(--purple-100),
-    var(--purple-400),
-    var(--purple-600)
-  );
+  background-image: var(--gradient);
   width: 37.5rem;
   height: 26.25rem;
-  border-radius:40%;
+  border-radius: 40%;
 
   ${(props) =>
     props.variant === "start"
@@ -52,11 +46,31 @@ export const AuthContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  img{
+  img {
     width: 50%;
     align-self: flex-end;
   }
-  
+`;
+
+export const AuthContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    background-image: var(--gradient-dark);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+
+    position: absolute;
+    margin-bottom: 24rem;
+    font-size: 4rem;
+  }
 `;
 
 //align-self: flex-end;

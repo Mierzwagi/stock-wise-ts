@@ -39,6 +39,13 @@ export function Itens() {
       }
 
       setSalas(allSalas);
+
+      //Definindo a primeira sala como selecionada:
+      if(allSalas.length > 0){
+        const firstSalaId = String(allSalas[0].id);
+        setSelectSala(firstSalaId);
+        fetchItens(firstSalaId)
+      }
     } catch (error) {
       const typedError = error as Error;
       setError(typedError.message);
@@ -80,21 +87,11 @@ export function Itens() {
     fetchItens(salaId); // Buscar itens da sala selecionada
   };
 
-  if (loading) {
-    return <p>Carregando...</p>;
-  }
-
-  if (error) {
-    return <p>Erro: {error}</p>;
-  }
 
   return (
     <ItensContainer>
       <SelectContainer>
-        <SelectInput value={selectSala} onChange={handleSalaChange}>
-          <option value="" hidden>
-            Selecionar sala
-          </option>
+        <SelectInput value={selectSala} onChange={handleSalaChange}>      
           {salas.map((sala) => (
             <option key={sala.id} value={sala.id}>
               {sala.nome}

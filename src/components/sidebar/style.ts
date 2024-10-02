@@ -8,12 +8,7 @@ export const SidebarContainer = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(
-    45deg,
-    var(--purple-100),
-    var(--purple-400),
-    var(--purple-600)
-  );
+  background-image: var(--gradient);
   border-radius: 0 20px 0 20px;
 
   button {
@@ -38,3 +33,4 @@ export const IconsContainer = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+

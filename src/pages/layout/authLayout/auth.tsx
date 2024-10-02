@@ -1,6 +1,12 @@
 //import { Outlet } from "react-router-dom";
 
-import { AuthContainer, BackgroundDiv, BackgroundDivContainer, SignContainer } from "./style";
+import {
+  AuthContainer,
+  AuthContent,
+  BackgroundDiv,
+  BackgroundDivContainer,
+  SignContainer,
+} from "./style";
 import BackImage from "../../../assets/images/img-background-container.svg";
 import { Outlet } from "react-router-dom";
 //import test1  from '../../../assets/images/test1.svg'
@@ -14,7 +20,10 @@ export default function Auth() {
         <BackgroundDiv variant="end"></BackgroundDiv>
       </BackgroundDivContainer>
       <AuthContainer>
-        <Outlet/>
+        <AuthContent>
+          <h1>STOCK WISE</h1>
+          <Outlet />
+        </AuthContent>
         <img src={BackImage} alt="" />
       </AuthContainer>
     </SignContainer>
