@@ -31,9 +31,14 @@ export interface Sala {
   quantidadeDeItens: string;
 }
 
-export const listSalas = async (page: number = 1, limit: number = 100): Promise<Sala[]> => {
+/* export const listSalas = async (page: number = 1, limit: number = 100): Promise<Sala[]> => {
   const response = await api.get(`/salas?page=${page}&limit=${limit}`);
   return response.data.data;
+}; */
+
+export const listSalas = async (): Promise<Sala[]> => {
+  const response = await api.get(`/salas`);
+  return response.data;
 };
 
 export const listItensSalas = async (): Promise<Item[]> => {

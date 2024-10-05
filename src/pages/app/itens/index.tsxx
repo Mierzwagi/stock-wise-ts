@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-//import { List } from "../../../components/list";
 import { List } from "../../../components/list";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
-  HeaderContainer,
   IntensListContainer,
   ItensContainer,
   SelectContainer,
-  SelectInput,
+  SelectInput
 } from "./style";
 
 export function Itens() {
@@ -17,16 +15,36 @@ export function Itens() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
+  const fechtData = async () => {
     try {
-      const response = await listSalas();
-      console.log(response);
+      //todas as salas recuperadas da API e armazenadas em Sala[]
+      let allSalas: Sala[] = [];
+      let page = 1;
+      ////iniciando o loop
+      let hasMore = true;
 
-      if (Array.isArray(response)) {
-        setSalas(response);
-      } else {
-        setSalas([]);
-        setError("Não foi possível carregar as salas.");
+      //o loop irá continuar até não haver mais salas para recuperar (hasMore === false)
+      while (hasMore) {
+        const response = await listSalas(page);
+        console.log(response);
+
+        //Verifica se a API retornou alguma sala
+        if (response.length > 0) {
+          //As salas retornadas são armazenadas em allSalas e todos os 'elementos' ...response serão add nela
+          allSalas = [...allSalas, ...response];
+          page++;
+        } else {
+          hasMore = false;
+        }
+      }
+
+      setSalas(allSalas);
+
+      //Definindo a primeira sala como selecionada:
+      if(allSalas.length > 0){
+        const firstSalaId = String(allSalas[0].id);
+        setSelectSala(firstSalaId);
+        fetchItens(firstSalaId)
       }
     } catch (error) {
       const typedError = error as Error;
@@ -51,7 +69,7 @@ export function Itens() {
   };
 
   useEffect(() => {
-    fetchData();
+    fechtData();
   }, []);
 
   if (loading) {
@@ -65,30 +83,27 @@ export function Itens() {
   //Criando a função para quando o usuário selecionar a sela
   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const salaId = e.target.value;
-    setSelectSala(salaId);
+    setSelectSala(salaId); 
     fetchItens(salaId); // Buscar itens da sala selecionada
   };
 
-  const selectedSala = salas.find((sala) => String(sala.id) === selectSala);
 
   return (
     <ItensContainer>
-      <HeaderContainer>
-        <IntensListContainer>
-          {selectedSala && <h3>{selectedSala.nome}</h3>}
-        </IntensListContainer>
-        <SelectContainer>
-          <SelectInput value={selectSala} onChange={handleSalaChange}>
-            {salas.map((sala) => (
-              <option key={sala.id} value={sala.id}>
-                {sala.nome}
-              </option>
-            ))}
-          </SelectInput>
-        </SelectContainer>
-      </HeaderContainer>
+      <SelectContainer>
+        <SelectInput value={selectSala} onChange={handleSalaChange}>      
+          {salas.map((sala) => (
+            <option key={sala.id} value={sala.id}>
+              {sala.nome}
+            </option>
+          ))}
+        </SelectInput>
+      </SelectContainer>
 
-      <List itens={itens} />
+      <IntensListContainer>
+        <h2>Itens da Sala</h2>
+        <List itens={itens}/>
+      </IntensListContainer>
     </ItensContainer>
   );
 }

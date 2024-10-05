@@ -1,19 +1,21 @@
 import styled from "styled-components";
 
+export const HeaderContainer = styled.header`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const ItensContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 export const SelectContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const SelectInput = styled.select`
-  width: 15%;
   padding: 0.5rem;
   border: 0;
   border-radius: 8px;
@@ -46,10 +48,10 @@ export const SelectInput = styled.select`
 `;
 
 export const IntensListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 
+  h3 {
+    font-size: 1.2rem;
+  }
 `;
 
 export const ItensTitle = styled.div`

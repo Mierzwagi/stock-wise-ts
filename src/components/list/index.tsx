@@ -1,6 +1,15 @@
 import { Image, Trash } from "@phosphor-icons/react";
 import { Item } from "../../server/endpoints";
-import { DenominacaoDiv, DivContainer, ListContainer } from "./style";
+import {
+  DenominacaoDiv,
+  DivContainer,
+  HeaderContainer,
+  HeaderTitle,
+  HeaderTitleDenominacao,
+  IMG,
+  ListContainer,
+} from "./style";
+import { Pagination } from "../Pagination";
 
 //Recebendo a lista de Itens por Props
 interface ItensProps {
@@ -48,26 +57,36 @@ export const List: React.FC<ItensProps> = ({ itens }) => {
 
   return (
     <>
-      {itens.length === 0 ? (
-        <p>Sem itens nesta sala</p>
-      ) : (
-        itens.map((item) => (
-          <ListContainer key={item.externalId}>
-            <DivContainer>
-              <strong>{item.externalId}</strong>
-            </DivContainer>
-            <DenominacaoDiv>
-              <strong>{item.nome}</strong>
-            </DenominacaoDiv>
-            <DivContainer>
-              <strong>{item.dataDeIncorporacao}</strong>
-            </DivContainer>
-            <button>
-              <Image size={40} color="#5907AF" />
-            </button>
-          </ListContainer>
-        ))
-      )}
+      <HeaderContainer>
+        <HeaderTitle>
+          <strong>ID</strong>
+        </HeaderTitle>
+        <HeaderTitleDenominacao>
+          <strong>DENOMINAÇÃO</strong>
+        </HeaderTitleDenominacao>
+        <HeaderTitle>
+          <strong>INCORPORAÇÃO</strong>
+        </HeaderTitle>
+        <IMG></IMG>
+      </HeaderContainer>
+
+      {itens.map((item) => (
+        <ListContainer key={item.externalId}>
+          <DivContainer>
+            <strong>{item.externalId}</strong>
+          </DivContainer>
+          <DenominacaoDiv>
+            <strong>{item.nome}</strong>
+          </DenominacaoDiv>
+          <DivContainer>
+            <strong>{item.dataDeIncorporacao}</strong>
+          </DivContainer>
+          <button>
+            <Image size={40} color="#5907AF" />
+          </button>
+        </ListContainer>
+      ))}
+      <Pagination/>
     </>
   );
 };

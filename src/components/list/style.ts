@@ -1,9 +1,35 @@
 import styled from "styled-components";
 
+export const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* gap: 2rem; */
+  justify-content: space-around;
+
+`;
+
+export const HeaderTitle = styled.div`
+  width: 20%;
+  padding: 0.2rem;
+  border-radius: 10px;
+`
+export const HeaderTitleDenominacao = styled.div`
+  width: 50%;
+  padding: 0.2rem;
+  border-radius: 10px;
+`
+export const IMG = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+`
+
+
 export const ListContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  height: 2.6rem;
   /* gap: 2rem; */
   justify-content: space-around;
 
@@ -11,6 +37,12 @@ export const ListContainer = styled.div`
     border: 0;
     background-color: transparent;
     cursor: pointer;
+  }
+
+  strong{
+    font-size: 0.9rem;
+    font-weight: bold;
+
   }
 `;
 
