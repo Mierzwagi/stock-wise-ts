@@ -8,13 +8,6 @@ export interface Item {
   url: string;
 }
 
-export const listItens = async (page?:string, limit?:string): Promise<Item[]> => {
-  const response = await api.get(
-    `/itens?page=${page}&limit=${limit || 10}`
-  );
-  return response.data.data;
-};
-
 export interface Pageable<T> {
   data: T[];
   totalItems: number;
@@ -22,7 +15,21 @@ export interface Pageable<T> {
   currentPage: number;
 }
 
-//Pageable<Itens>
+export const listItens = async (localizacao?: string, page:string = '1'): Promise<Pageable<Item>> => {
+  console.log(`/salas/${localizacao}/itens?page=${page}`);
+  const response = await api.get(
+    `/salas/${localizacao}/itens?page=${page}`    
+  );
+  return {
+    data: response.data.data, // Itens
+    totalItems: response.data.totalItems, // Total de itens
+    totalPages: response.data.totalPages, // Total de páginas
+    currentPage: response.data.currentPage, // Página atual
+  };
+  
+};
+
+
 
 export interface Sala {
   id: number;
