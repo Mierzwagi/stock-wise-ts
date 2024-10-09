@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { IconsContainer, SidebarContainer } from "./style";
-import { ClipboardText, File, User } from "@phosphor-icons/react";
+import { FaUserLarge, FaFileInvoice, FaBoxOpen } from "react-icons/fa6";
 
 export function Sidebar() {
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ export function Sidebar() {
     <SidebarContainer>
       <h1></h1>
       <IconsContainer>
-        <button onClick={handleItens}><ClipboardText size={50} color="white" /></button>
-        <button onClick={handleDash}><File size={50} color="white" /></button>
-        <button onClick={handleUser}><User size={50} color="white" /></button>
+        <button onClick={handleItens}><FaBoxOpen size={50} color="white" /></button>
+        <button onClick={handleDash}><FaFileInvoice size={50} color="white" /></button>
+        <button onClick={handleUser}><FaUserLarge size={50} color="white" /></button>
       </IconsContainer>
     </SidebarContainer>
   );

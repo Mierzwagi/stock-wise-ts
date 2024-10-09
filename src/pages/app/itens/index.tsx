@@ -1,22 +1,25 @@
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useCallback, useEffect, useState } from "react";
 //import { List } from "../../../components/list";
 import { List } from "../../../components/list";
+import { FaPaperclip } from "react-icons/fa6";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
   HeaderContainer,
   IntensListContainer,
   ItensContainer,
-  SelectContainer,
+  ListContainer,
+  PaginationButton,
   SelectInput,
 } from "./style";
 import { createContext } from "use-context-selector";
+import { Pagination } from "../../../components/Pagination";
+import { ButtonRound } from "../../../components/button";
+import { MyModal } from "../../../components/modal";
 
 interface ItensContextType {
-  limitPerPage: number;
   fetchItens: (salaId: string, page?: number) => void;
-  itens: Item[];
   selectSala: string;
-  totalItems: number;  // Inclua totalItems
   totalPages: number;
 }
 
@@ -30,7 +33,11 @@ export function Itens() {
   const [selectSala, setSelectSala] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const limitPerPage = 10;
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
 
   const fetchSala = async () => {
     try {
@@ -52,26 +59,29 @@ export function Itens() {
   };
 
   //Item da sala selecionada
-  const fetchItens = async (localizacao: string, page: number = 1) => {
-    console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
-    try {
-      const response = await listItens(localizacao, page.toString());
-      if (response) {
-        console.log("Itens recebidos da API:", response);
-        setItens(response.data);
-        setTotalItems(response.totalItems);
-        setTotalPages(response.totalPages);
-      } else {
-        setItens([]);
-        setError("Não foi possível carregar os itens.");
+  const fetchItens = useCallback(
+    async (localizacao: string, page: number = 1) => {
+      console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
+      try {
+        const response = await listItens(localizacao, page.toString());
+        if (response) {
+          console.log("Itens recebidos da API:", response);
+          setItens(response.data);
+          setTotalItems(response.totalItems);
+          setTotalPages(response.totalPages);
+        } else {
+          setItens([]);
+          setError("Não foi possível carregar os itens.");
+        }
+      } catch (error) {
+        const typedError = error as Error;
+        setError(typedError.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      const typedError = error as Error;
-      setError(typedError.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    []
+  );
 
   useEffect(() => {
     fetchSala();
@@ -84,7 +94,7 @@ export function Itens() {
     } else {
       setItens([]);
     }
-  }, [selectSala]);
+  }, [selectSala, fetchItens]);
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -109,13 +119,17 @@ export function Itens() {
   return (
     <ItensContainer>
       <ItensContext.Provider
-        value={{ limitPerPage, fetchItens, itens, selectSala, totalItems, totalPages }}
+        value={{
+          fetchItens,
+          selectSala,
+          totalPages,
+        }}
       >
         <HeaderContainer>
           <IntensListContainer>
             {selectedSala && <h3>{selectedSala.nome}</h3>}
           </IntensListContainer>
-          <SelectContainer>
+         
             <SelectInput value={selectSala} onChange={handleSalaChange}>
               {salas.map((sala) => (
                 <option key={sala.localizacao} value={sala.localizacao}>
@@ -123,10 +137,19 @@ export function Itens() {
                 </option>
               ))}
             </SelectInput>
-          </SelectContainer>
+        
         </HeaderContainer>
+        <ListContainer>
+          <List itens={itens} />
+        </ListContainer>
 
-        <List itens={itens} />
+        <PaginationButton>
+          <Pagination />
+          <ButtonRound  onClick={handleOpen}>
+            <FaPaperclip size={30} />
+          </ButtonRound>
+        </PaginationButton>
+        <MyModal isOpen={open} handleClose={handleClose} />
       </ItensContext.Provider>
     </ItensContainer>
   );

@@ -1,4 +1,4 @@
-import { Image, Trash } from "@phosphor-icons/react";
+import { FaImages, FaTrashCan } from "react-icons/fa6";
 import { Item } from "../../server/endpoints";
 import {
   DenominacaoDiv,
@@ -9,7 +9,7 @@ import {
   IMG,
   ListContainer,
 } from "./style";
-import { Pagination } from "../Pagination";
+import { ListItensContainer } from "../../pages/app/itens/style";
 
 //Recebendo a lista de Itens por Props
 interface ItensProps {
@@ -56,7 +56,7 @@ export const List: React.FC<ItensProps> = ({ itens }) => {
   }
 
   return (
-    <>
+    <ListItensContainer>
       <HeaderContainer>
         <HeaderTitle>
           <strong>ID</strong>
@@ -82,12 +82,12 @@ export const List: React.FC<ItensProps> = ({ itens }) => {
             <strong>{item.dataDeIncorporacao}</strong>
           </DivContainer>
           <button>
-            <Image size={40} color="#5907AF" />
+            <FaImages size={30} color="#5907AF" />
           </button>
         </ListContainer>
       ))}
-      <Pagination/>
-    </>
+      
+    </ListItensContainer>
   );
 };
 
@@ -104,7 +104,7 @@ export function ListUser() {
         <strong>111111</strong>
       </DivContainer>
       <button>
-        <Trash size={40} color="#5907AF" />
+        <FaTrashCan size={30} color="#5907AF" />
       </button>
     </ListContainer>
   );

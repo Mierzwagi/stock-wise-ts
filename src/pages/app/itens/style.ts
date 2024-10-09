@@ -1,18 +1,23 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.header`
+export const ListItensContainer = styled.div`
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
+  height: 100%;
+`
 
 export const ItensContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
 `;
 
-export const SelectContainer = styled.div`
+export const HeaderContainer = styled.header`
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const SelectInput = styled.select`
@@ -63,4 +68,17 @@ export const ItensTitle = styled.div`
 `;
 export const DenominacaoH4 = styled.h4`
   width: 42%;
+`;
+
+export const ListContainer = styled.div`
+  width: 100%;
+  height: 80%;
+`;
+
+export const PaginationButton = styled.div`
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

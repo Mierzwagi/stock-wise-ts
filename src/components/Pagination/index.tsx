@@ -1,8 +1,8 @@
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { IconsStyles, PageButtonsStyles, PaginationContainer } from "./style";
 import { useContextSelector } from "use-context-selector";
 import { ItensContext } from "../../pages/app/itens";
 import { useState, useMemo, useEffect } from "react";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 
 export function Pagination() {
   const { fetchItens, selectSala, totalPages } = useContextSelector(
@@ -35,21 +35,24 @@ export function Pagination() {
     );
   }, [currentPage, totalPages]);
 
+  const canGoBack = currentPage > 1
+  const canGoForward = currentPage < totalPages
+
   return (
     <PaginationContainer>
-      <IconsStyles>
-        <CaretLeft />
+      <IconsStyles active={canGoBack} disabled={!canGoBack} onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
+        <FaCaretLeft />
       </IconsStyles>
 
       <div>
         {visiblePages.map((page) => (
-          <PageButtonsStyles onClick={() => setCurrentPage(page)} key={page}>
+          <PageButtonsStyles active={page === currentPage} onClick={() => setCurrentPage(page)} key={page}>
             {page}
           </PageButtonsStyles>
         ))}
       </div>
-      <IconsStyles active>
-        <CaretRight />
+      <IconsStyles active={canGoForward} disabled={!canGoForward} onClick={() => setCurrentPage((prev) => Math.max(prev + 1))}>
+        <FaCaretRight />
       </IconsStyles>
     </PaginationContainer>
   );
