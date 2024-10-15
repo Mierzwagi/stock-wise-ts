@@ -32,7 +32,7 @@ export const SignInForm = styled.form`
   }
 `;
 
-export const SwhichConteiner = styled.div`
+export const SwitchContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

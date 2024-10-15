@@ -3,7 +3,7 @@ import {
   SignInContainer,
   SignInForm,
   SignInTitle,
-  SwhichConteiner,
+  SwitchContainer,
 } from "../styled/style";
 import { ToggleButton } from "../../../components/switch";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +11,16 @@ import { signUp } from "../../../server/endpoints";
 
 export function SignUp() {
   console.log("Componente SignUp renderizado");
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<string | null>(null);
 
+  const [userData, setUserData] = useState({
+    nome: "",
+    email: "",
+    senha: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [isOn, setIsOn] = useState(false);
+
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -28,53 +30,62 @@ export function SignUp() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // fazer requisição para cadastro
-    console.log("Navegando para signin");
     setLoading(true);
 
     try {
-      const response = await signUp({ nome, email, senha });
+      const response = await signUp(userData);
       console.log("Resposta do servidor:", response);
       navigate("/signin");
     } catch (error) {
-      alert("Erro ao cadastrar usuário");
       const typedError = error as Error;
       setError(typedError.message);
+      alert("Erro ao cadastrar usuário");
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <SignInContainer>
       <SignInTitle>
         <h2>Sign Up</h2>
-        <SwhichConteiner>
+        <SwitchContainer>
           <strong>Sign In</strong>
-          <ToggleButton isOn={isOn} handle={handleToggle}></ToggleButton>
-        </SwhichConteiner>
+          <ToggleButton isOn={isOn} handle={handleToggle} />
+        </SwitchContainer>
       </SignInTitle>
       <SignInForm onSubmit={handleSubmit}>
         <input
           type="text"
+          name="nome" 
           placeholder="Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
+          value={userData.nome}
+          onChange={handleChange}
+          required 
         />
         <input
-          type="text"
+          type="email"
+          name="email" 
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userData.email}
+          onChange={handleChange}
+          required 
         />
         <input
           type="password"
+          name="senha"
           placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          value={userData.senha}
+          onChange={handleChange}
+          required 
         />
         <button type="submit" disabled={loading}>
-          Criar
+          {loading ? "Criando..." : "Criar"}
         </button>
       </SignInForm>
     </SignInContainer>

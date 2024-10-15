@@ -46,8 +46,6 @@ export const listSalas = async (): Promise<Sala[]> => {
   return response.data;
 };
 
-/* N precisa de Role pq o backend ja coloca automatico so quando for 
-admin mas ainda n fiz a logica  */
 export interface SignUpBody {
   nome: string;
   email: string;
