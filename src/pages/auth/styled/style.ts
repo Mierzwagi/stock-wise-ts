@@ -1,18 +1,14 @@
-
 import styled from "styled-components";
 
 export const SignInContainer = styled.div`
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  width: 66%;
+  height: 40%;
 `;
 export const SignInTitle = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 `;
 
 export const SignInForm = styled.form`
@@ -21,14 +17,14 @@ export const SignInForm = styled.form`
   gap: 2rem;
 
   input {
-    background-color: var(--gray-100);
-    padding: 0.5rem;
+    background-color: var(--gray-200);
+    padding: 0.6rem;
   }
 
   button {
     background-image: var(--gradient);
     width: 6rem;
-    height: 2rem;
+    height: 2.4rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -37,8 +33,8 @@ export const SignInForm = styled.form`
 `;
 
 export const SwhichConteiner = styled.div`
-  align-self: flex-start;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
-  gap: 0.5rem;
 `;

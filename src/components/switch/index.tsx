@@ -1,4 +1,8 @@
-import { Toggle } from "./style";
+//import { Toggle } from "./style";
+import { Switch } from "@mui/material";
+//import { SwitchStyled } from "./style";
+
+
 
 interface ToggleButtonProps {
     isOn: boolean;
@@ -6,6 +10,14 @@ interface ToggleButtonProps {
   }
 
 export function ToggleButton({isOn, handle}: ToggleButtonProps) {
-  return <Toggle isOn={isOn} onClick={handle}/>
+  return (
+    <Switch
+    color="secondary"
+      checked={isOn}
+      onChange={handle}
+      inputProps={{ 'aria-label': 'controlled' }}
+  
+    />
+  )
 }
 

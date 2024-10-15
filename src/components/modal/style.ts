@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BoxStyled = styled.div`
   position: absolute;
   top: 50%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 41%;
   background-color: #fff;

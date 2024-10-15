@@ -1,12 +1,12 @@
-
+import { Switch } from "@mui/material";
 import styled from "styled-components";
 
 interface ToggleProps {
   isOn: boolean;
 }
 
-export const Toggle = styled.div<ToggleProps>`
-  width: 3.75rem;
+export const SwitchStyled = styled(Switch)<ToggleProps>`
+ /*  width: 3.75rem;
   height: 1.5rem;
   background-color: ${(props) =>
     props.isOn === true ? "var(--purple-100)" : "var(--gray-200)"};
@@ -31,5 +31,5 @@ export const Toggle = styled.div<ToggleProps>`
     align-items: center;
     justify-content: center;
     left: ${(props) => (props.isOn === true ? "2.18rem" : "0")};
-  }
+  } */
 `;

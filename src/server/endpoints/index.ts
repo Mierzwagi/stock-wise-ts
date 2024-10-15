@@ -29,8 +29,6 @@ export const listItens = async (localizacao?: string, page:string = '1'): Promis
   
 };
 
-
-
 export interface Sala {
   id: number;
   localizacao: number;
@@ -48,7 +46,42 @@ export const listSalas = async (): Promise<Sala[]> => {
   return response.data;
 };
 
-export const listItensSalas = async (): Promise<Item[]> => {
-    const response = await api.get(`/itens`);
-  return response.data.data;
+export interface SignUpBody {
+  nome: string;
+  email: string;
+  senha: string;
+  role: string;
 }
+/* export const signUp = async (nome: string, email: string, password: string, role: string = 'USER' ): Promise<SignUpBody[]> => {
+  const response = await api.post('/auth/signup');
+  return response.data;
+}; */
+
+export async function signUp({nome, email, senha}: SignUpBody){
+
+  console.log("Dados enviados para o cadastro:", { nome, email, senha, role: 'USER' });
+    try {
+    const response = await api.post("/auth/signup", { 
+      nome,
+      email,
+      senha,
+      role: "USER"
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cadastrar:", error);
+    throw error;
+  }
+}
+
+export interface SignInBody {
+  email: string;
+  senha: string;
+}
+
+export const signIn = async (email: string, senha:string): Promise<SignInBody[]> => {
+  const response = await api.get(`/auth/login`, {
+    params: { email, senha },
+  });
+  return response.data;
+};
