@@ -15,10 +15,10 @@ export interface Pageable<T> {
   currentPage: number;
 }
 
-export const listItens = async (localizacao?: string, page:string = '1'): Promise<Pageable<Item>> => {
+export const listItens = async (localizacao?: string, page: string = '1'): Promise<Pageable<Item>> => {
   console.log(`/salas/${localizacao}/itens?page=${page}`);
   const response = await api.get(
-    `/salas/${localizacao}/itens?page=${page}`    
+    `/salas/${localizacao}/itens?page=${page}`
   );
   return {
     data: response.data.data, // Itens
@@ -26,7 +26,7 @@ export const listItens = async (localizacao?: string, page:string = '1'): Promis
     totalPages: response.data.totalPages, // Total de páginas
     currentPage: response.data.currentPage, // Página atual
   };
-  
+
 };
 
 export interface Sala {
@@ -46,26 +46,27 @@ export const listSalas = async (): Promise<Sala[]> => {
   return response.data;
 };
 
+/* N precisa de Role pq o backend ja coloca automatico so quando for 
+admin mas ainda n fiz a logica  */
 export interface SignUpBody {
   nome: string;
   email: string;
   senha: string;
-  role: string;
 }
 /* export const signUp = async (nome: string, email: string, password: string, role: string = 'USER' ): Promise<SignUpBody[]> => {
   const response = await api.post('/auth/signup');
   return response.data;
 }; */
 
-export async function signUp({nome, email, senha}: SignUpBody){
+export async function signUp({ nome, email, senha }: SignUpBody) {
 
-  console.log("Dados enviados para o cadastro:", { nome, email, senha, role: 'USER' });
-    try {
-    const response = await api.post("/auth/signup", { 
+  console.log("Dados enviados para o cadastro:", { nome, email, senha });
+
+  try {
+    const response = await api.post("/auth/signup", {
       nome,
       email,
-      senha,
-      role: "USER"
+      senha
     });
     return response.data;
   } catch (error) {
@@ -79,9 +80,9 @@ export interface SignInBody {
   senha: string;
 }
 
-export const signIn = async (email: string, senha:string): Promise<SignInBody[]> => {
-  const response = await api.get(`/auth/login`, {
-    params: { email, senha },
-  });
+export const signIn = async (email: string, senha: string) => {
+  /* pq ce colocou a rota de login com get wuaaaa */
+  const response = await api.post(`/auth/login`, { email, senha });
   return response.data;
 };
+

@@ -33,7 +33,7 @@ export function SignUp() {
     setLoading(true);
 
     try {
-      const response = await signUp({ nome, email, senha, role: "USER" });
+      const response = await signUp({ nome, email, senha });
       console.log("Resposta do servidor:", response);
       navigate("/signin");
     } catch (error) {

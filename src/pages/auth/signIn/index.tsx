@@ -31,7 +31,7 @@ export function SignIn() {
     setLoading(true);
 
     try {
-      const response = await signIn(email, senha );
+      const response = await signIn(email, senha);
       console.log("Resposta do servidor:", response);
       navigate("/");
     } catch (error) {
