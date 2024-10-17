@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState } from "react"; 
 import {
+  PasswordInput,
   SignInContainer,
   SignInForm,
   SignInTitle,
@@ -15,16 +16,18 @@ export function SignIn() {
     senha: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
   const [isOn, setIsOn] = useState(true);
 
   const navigate = useNavigate();
 
+  //Trocar para signin para rota signup
   const handleToggle = () => {
     setIsOn((prev) => !prev);
     navigate("/signup");
   };
 
+  // Criando um eVento para o formulário assim que for preenchido
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -42,6 +45,7 @@ export function SignIn() {
     }
   };
 
+  // eVento para manipular o input 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSignup((prev) => ({ ...prev, [name]: value }));
@@ -59,20 +63,30 @@ export function SignIn() {
       <SignInForm onSubmit={handleSubmit}>
         <input
           type="text"
-          name="email" 
+          name="email"
           placeholder="Email"
           value={signup.email}
           onChange={handleChange}
           required
         />
-        <input
-          type="password"
-          name="senha" 
-          placeholder="Senha"
-          value={signup.senha}
-          onChange={handleChange}
-          required
-        />
+        <PasswordInput>
+          <input
+            id="senha"
+            type="password"
+            name="senha"
+            placeholder="Senha"
+            value={signup.senha}
+            onChange={handleChange}
+            required
+          />
+         {/*  <FaEye
+          id="btn-senha"
+            size={20}
+            color="#808080"
+            style={{ position: "absolute", left: "40%" }}
+          /> */}
+        </PasswordInput>
+
         <button type="submit" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}
         </button>

@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useState } from "react";
-//import { List } from "../../../components/list";
-import { List } from "../../../components/list";
+import { ListItens } from "../../../components/list/itensList";
 import { FaPaperclip } from "react-icons/fa6";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
@@ -12,36 +10,30 @@ import {
   PaginationButton,
   SelectInput,
 } from "./style";
-import { createContext } from "use-context-selector";
 import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
 import { MyModal } from "../../../components/modal";
 
-interface ItensContextType {
-  fetchItens: (salaId: string, page?: number) => void;
-  selectSala: string;
-  totalPages: number;
-}
-
-export const ItensContext = createContext({} as ItensContextType);
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [itens, setItens] = useState<Item[]>([]);
-  const [totalItems, setTotalItems] = useState<number>(0);
+  const [, setTotalItems] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [selectSala, setSelectSala] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1); // Página atual
 
+  //Modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
 
+  //Buscando as Salas
   const fetchSala = async () => {
     try {
-      const response = await listSalas();
+      const response = await listSalas();//Requisição para API
       console.log("Salas:", response);
 
       if (Array.isArray(response)) {
@@ -58,19 +50,20 @@ export function Itens() {
     }
   };
 
-  //Item da sala selecionada
+  //Itens da sala selecionada
+  //useCaallback: hook que memoriza a função não deixando que ela seja replicada a cada renderização
   const fetchItens = useCallback(
     async (localizacao: string, page: number = 1) => {
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
-        const response = await listItens(localizacao, page.toString());
+        const response = await listItens(localizacao, page.toString());// Faz a requisição buscando a sala com a qnt de páginas
         if (response) {
           console.log("Itens recebidos da API:", response);
           setItens(response.data);
-          setTotalItems(response.totalItems);
-          setTotalPages(response.totalPages);
+          setTotalItems(response.totalItems);// Atualiza o total de itens em cada sala
+          setTotalPages(response.totalPages); // Atualiza o total de páginas
         } else {
-          setItens([]);
+          setItens([]);//limpa a lista
           setError("Não foi possível carregar os itens.");
         }
       } catch (error) {
@@ -87,14 +80,15 @@ export function Itens() {
     fetchSala();
   }, []);
 
+  //Bucas os iten sao mudas a sala
   useEffect(() => {
     if (selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
-      fetchItens(selectSala); // Chama a busca quando a sala é selecionada
+      fetchItens(selectSala, currentPage); //Busca os itens de acordo com a sala e a página selecionada
     } else {
       setItens([]);
     }
-  }, [selectSala, fetchItens]);
+  }, [selectSala, currentPage, fetchItens]); 
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -104,53 +98,45 @@ export function Itens() {
     return <p>Erro: {error}</p>;
   }
 
-  //Criando a função para quando o usuário selecionar a sela
+  //Função para mudar a sala// eVentos que manipula elementos de seleção como <select>
   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const salaId = e.target.value;
     console.log("sala selecionada", salaId);
-    setSelectSala(salaId);
-    //fetchItens(salaId); // Buscar itens da sala selecionada
+    setSelectSala(salaId);//Atualiza de acordo com a sala selecionada
+    setCurrentPage(1); // Reseta a página atual ao mudar de sala
   };
 
+  //Exibição do nome da sala
   const selectedSala = salas.find(
     (sala) => String(sala.localizacao) === selectSala
   );
 
   return (
     <ItensContainer>
-      <ItensContext.Provider
-        value={{
-          fetchItens,
-          selectSala,
-          totalPages,
-        }}
-      >
         <HeaderContainer>
           <IntensListContainer>
             {selectedSala && <h3>{selectedSala.nome}</h3>}
           </IntensListContainer>
-         
-            <SelectInput value={selectSala} onChange={handleSalaChange}>
-              {salas.map((sala) => (
-                <option key={sala.localizacao} value={sala.localizacao}>
-                  {sala.nome}
-                </option>
-              ))}
-            </SelectInput>
-        
+
+          <SelectInput value={selectSala} onChange={handleSalaChange}>
+            {salas.map((sala) => (
+              <option key={sala.localizacao} value={sala.localizacao}>
+                {sala.nome}
+              </option>
+            ))}
+          </SelectInput>
         </HeaderContainer>
         <ListContainer>
-          <List itens={itens} />
+          <ListItens itens={itens} />
         </ListContainer>
 
         <PaginationButton>
-          <Pagination />
-          <ButtonRound  onClick={handleOpen}>
+          <Pagination currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages}/>
+          <ButtonRound onClick={handleOpen}>
             <FaPaperclip size={30} />
           </ButtonRound>
         </PaginationButton>
         <MyModal isOpen={open} handleClose={handleClose} />
-      </ItensContext.Provider>
     </ItensContainer>
   );
 }

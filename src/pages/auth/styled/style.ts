@@ -38,3 +38,14 @@ export const SwitchContainer = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
+
+export const PasswordInput = styled.div`
+width: 100%;
+display: flex;
+align-items: center;
+
+input{
+  width: 100%;
+}
+
+`

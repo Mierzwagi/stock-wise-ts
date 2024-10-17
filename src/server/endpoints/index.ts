@@ -15,18 +15,18 @@ export interface Pageable<T> {
   currentPage: number;
 }
 
-export const listItens = async (localizacao?: string, page: string = '1'): Promise<Pageable<Item>> => {
+export const listItens = async (
+  localizacao?: string,
+  page: string = "1"
+): Promise<Pageable<Item>> => {
   console.log(`/salas/${localizacao}/itens?page=${page}`);
-  const response = await api.get(
-    `/salas/${localizacao}/itens?page=${page}`
-  );
+  const response = await api.get(`/salas/${localizacao}/itens?page=${page}`);
   return {
     data: response.data.data, // Itens
     totalItems: response.data.totalItems, // Total de itens
     totalPages: response.data.totalPages, // Total de páginas
     currentPage: response.data.currentPage, // Página atual
   };
-
 };
 
 export interface Sala {
@@ -57,14 +57,13 @@ export interface SignUpBody {
 }; */
 
 export async function signUp({ nome, email, senha }: SignUpBody) {
-
   console.log("Dados enviados para o cadastro:", { nome, email, senha });
 
   try {
     const response = await api.post("/auth/signup", {
       nome,
       email,
-      senha
+      senha,
     });
     return response.data;
   } catch (error) {
@@ -73,14 +72,20 @@ export async function signUp({ nome, email, senha }: SignUpBody) {
   }
 }
 
-export interface SignInBody {
-  email: string;
-  senha: string;
-}
-
 export const signIn = async (email: string, senha: string) => {
   /* pq ce colocou a rota de login com get wuaaaa */
   const response = await api.post(`/auth/login`, { email, senha });
   return response.data;
 };
 
+export interface User {
+  id: number;
+  nome: string;
+  email: string;
+  role: string;
+}
+
+export const usersRequest = async (page: string): Promise<Pageable<User>> => {
+  const response = await api.get(`/users?page=${page}`);
+  return response.data;
+};

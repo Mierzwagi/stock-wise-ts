@@ -1,60 +1,61 @@
 import { IconsStyles, PageButtonsStyles, PaginationContainer } from "./style";
-import { useContextSelector } from "use-context-selector";
-import { ItensContext } from "../../pages/app/itens";
-import { useState, useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 
-export function Pagination() {
-  const { fetchItens, selectSala, totalPages } = useContextSelector(
-    ItensContext,
-    (context) => context
-  );
+// Paginação recebe a pagina atual como prop que vem dos componentes
+interface PaginationProps {
+  currentPage: number; 
+  onPageChange: (page: number) => void;
+  totalPages: number;
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  /* const totalItens = useContextSelector(
-    ItensContext,
-    (context) => context.itens.length
-  ); */
-  //const totalPages = Math.ceil(totalItems / limitPerPage);
-
-  useEffect(() => {
-    if (selectSala) {
-      fetchItens(selectSala, currentPage); // Chama a busca com a sala e a página atuais
-    }
-  }, [currentPage, selectSala]);
-
+export function Pagination({ currentPage, onPageChange, totalPages }: PaginationProps) {
   const visiblePages = useMemo(() => {
-    const maxVisiblePages = 2;
+    const maxVisiblePages = 1; // Quandidade de páginas para mostrar
 
-    const startPage = Math.max(1, currentPage - maxVisiblePages);
-    const endPage = Math.min(totalPages, currentPage + maxVisiblePages);
+    //Página inicial e página final que são exibidas
+    const startPage = Math.max(1, currentPage - maxVisiblePages); // Página inicial não podendo ser menor que 1
+    const lastPage = Math.min(totalPages, currentPage + maxVisiblePages); //Página final não podendo ser menor que o total
 
+    //Arrya e páginas
     return Array.from(
-      { length: endPage - startPage + 1 },
+      { length: lastPage - startPage + 1 }, // A diferença entra a página inicial e final é o tamanho da array
       (_, index) => startPage + index
     );
-  }, [currentPage, totalPages]);
+  }, [currentPage, totalPages]); // Atualizando quando mudadas
 
-  const canGoBack = currentPage > 1
-  const canGoForward = currentPage < totalPages
+  const canGoBack = currentPage > 1; // Voltar a página
+  const canGoForward = currentPage < totalPages; // Ir para próxima página
 
   return (
     <PaginationContainer>
-      <IconsStyles active={canGoBack} disabled={!canGoBack} onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}>
+      <IconsStyles
+        active={canGoBack}
+        disabled={!canGoBack} // Disabita quando não tiver páginas para voltar
+        onClick={() => canGoBack && onPageChange(currentPage - 1)} 
+      >
         <FaCaretLeft />
       </IconsStyles>
 
       <div>
         {visiblePages.map((page) => (
-          <PageButtonsStyles active={page === currentPage} onClick={() => setCurrentPage(page)} key={page}>
+          <PageButtonsStyles
+            active={page === currentPage}
+            onClick={() => onPageChange(page)} 
+            key={page}
+          >
             {page}
           </PageButtonsStyles>
         ))}
       </div>
-      <IconsStyles active={canGoForward} disabled={!canGoForward} onClick={() => setCurrentPage((prev) => Math.max(prev + 1))}>
+
+      <IconsStyles
+        active={canGoForward}
+        disabled={!canGoForward}
+        onClick={() => canGoForward && onPageChange(currentPage + 1)} //
+      >
         <FaCaretRight />
       </IconsStyles>
     </PaginationContainer>
   );
 }
-

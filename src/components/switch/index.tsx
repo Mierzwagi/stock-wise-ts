@@ -15,7 +15,7 @@ export function ToggleButton({isOn, handle}: ToggleButtonProps) {
     color="secondary"
       checked={isOn}
       onChange={handle}
-      inputProps={{ 'aria-label': 'controlled' }}
+      
   
     />
   )
