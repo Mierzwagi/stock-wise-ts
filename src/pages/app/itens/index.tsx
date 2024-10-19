@@ -7,13 +7,12 @@ import {
   IntensListContainer,
   ItensContainer,
   ListContainer,
-  PaginationButton,
+  PaginationContainer,
   SelectInput,
 } from "./style";
 import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
 import { MyModal } from "../../../components/modal";
-
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
@@ -33,7 +32,7 @@ export function Itens() {
   //Buscando as Salas
   const fetchSala = async () => {
     try {
-      const response = await listSalas();//Requisição para API
+      const response = await listSalas(); //Requisição para API
       console.log("Salas:", response);
 
       if (Array.isArray(response)) {
@@ -56,14 +55,14 @@ export function Itens() {
     async (localizacao: string, page: number = 1) => {
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
-        const response = await listItens(localizacao, page.toString());// Faz a requisição buscando a sala com a qnt de páginas
+        const response = await listItens(localizacao, page.toString()); // Faz a requisição buscando a sala com a qnt de páginas
         if (response) {
           console.log("Itens recebidos da API:", response);
           setItens(response.data);
-          setTotalItems(response.totalItems);// Atualiza o total de itens em cada sala
+          setTotalItems(response.totalItems); // Atualiza o total de itens em cada sala
           setTotalPages(response.totalPages); // Atualiza o total de páginas
         } else {
-          setItens([]);//limpa a lista
+          setItens([]); //limpa a lista
           setError("Não foi possível carregar os itens.");
         }
       } catch (error) {
@@ -88,7 +87,7 @@ export function Itens() {
     } else {
       setItens([]);
     }
-  }, [selectSala, currentPage, fetchItens]); 
+  }, [selectSala, currentPage, fetchItens]);
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -102,7 +101,7 @@ export function Itens() {
   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const salaId = e.target.value;
     console.log("sala selecionada", salaId);
-    setSelectSala(salaId);//Atualiza de acordo com a sala selecionada
+    setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
     setCurrentPage(1); // Reseta a página atual ao mudar de sala
   };
 
@@ -113,30 +112,34 @@ export function Itens() {
 
   return (
     <ItensContainer>
-        <HeaderContainer>
-          <IntensListContainer>
-            {selectedSala && <h3>{selectedSala.nome}</h3>}
-          </IntensListContainer>
+      <HeaderContainer>
+        <IntensListContainer>
+          {selectedSala && <h3>{selectedSala.nome}</h3>}
+        </IntensListContainer>
 
-          <SelectInput value={selectSala} onChange={handleSalaChange}>
-            {salas.map((sala) => (
-              <option key={sala.localizacao} value={sala.localizacao}>
-                {sala.nome}
-              </option>
-            ))}
-          </SelectInput>
-        </HeaderContainer>
-        <ListContainer>
-          <ListItens itens={itens} />
-        </ListContainer>
+        <SelectInput value={selectSala} onChange={handleSalaChange}>
+          {salas.map((sala) => (
+            <option key={sala.localizacao} value={sala.localizacao}>
+              {sala.nome}
+            </option>
+          ))}
+        </SelectInput>
+      </HeaderContainer>
+      <ListContainer>
+        <ListItens itens={itens} />
+      </ListContainer>
 
-        <PaginationButton>
-          <Pagination currentPage={currentPage} onPageChange={setCurrentPage} totalPages={totalPages}/>
-          <ButtonRound onClick={handleOpen}>
-            <FaPaperclip size={30} />
-          </ButtonRound>
-        </PaginationButton>
-        <MyModal isOpen={open} handleClose={handleClose} />
+      <PaginationContainer>
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={totalPages}
+        />
+        <ButtonRound onClick={handleOpen}>
+          <FaPaperclip size={30} />
+        </ButtonRound>
+      </PaginationContainer>
+      <MyModal isOpen={open} handleClose={handleClose} />
     </ItensContainer>
   );
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ListItensContainer = styled.div`
   width: 100%;
   height: 100%;
-`
+`;
 
 export const ItensContainer = styled.div`
   display: flex;
@@ -53,7 +53,6 @@ export const SelectInput = styled.select`
 `;
 
 export const IntensListContainer = styled.div`
-
   h3 {
     font-size: 1.2rem;
   }
@@ -75,7 +74,7 @@ export const ListContainer = styled.div`
   height: 80%;
 `;
 
-export const PaginationButton = styled.div`
+export const PaginationContainer = styled.div`
   width: 100%;
   height: 10%;
   display: flex;

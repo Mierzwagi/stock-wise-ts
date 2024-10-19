@@ -1,5 +1,7 @@
 import api from "../api/api";
 
+
+// ==== ITENS / SALAS ====
 export interface Item {
   externalId: number;
   nome: string;
@@ -36,25 +38,21 @@ export interface Sala {
   quantidadeDeItens: string;
 }
 
-/* export const listSalas = async (page: number = 1, limit: number = 100): Promise<Sala[]> => {
-  const response = await api.get(`/salas?page=${page}&limit=${limit}`);
-  return response.data.data;
-}; */
-
 export const listSalas = async (): Promise<Sala[]> => {
   const response = await api.get(`/salas`);
   return response.data;
 };
+
+
+
+
+//==== AUTH ====
 
 export interface SignUpBody {
   nome: string;
   email: string;
   senha: string;
 }
-/* export const signUp = async (nome: string, email: string, password: string, role: string = 'USER' ): Promise<SignUpBody[]> => {
-  const response = await api.post('/auth/signup');
-  return response.data;
-}; */
 
 export async function signUp({ nome, email, senha }: SignUpBody) {
   console.log("Dados enviados para o cadastro:", { nome, email, senha });
@@ -78,6 +76,10 @@ export const signIn = async (email: string, senha: string) => {
   return response.data;
 };
 
+
+
+//==== USER ====
+
 export interface User {
   id: number;
   nome: string;
@@ -87,5 +89,15 @@ export interface User {
 
 export const usersRequest = async (page: string): Promise<Pageable<User>> => {
   const response = await api.get(`/users?page=${page}`);
+  return response.data;
+};
+
+export const usersRoleUpdate = async (id: number, newRole: string): Promise<void> => {
+  const response = await api.patch(`/users/${id}`, {role: newRole});
+  return response.data;
+};
+
+export const usersDelet = async (id: number): Promise<void> => {
+  const response = await api.delete(`/users/${id}`);
   return response.data;
 };
