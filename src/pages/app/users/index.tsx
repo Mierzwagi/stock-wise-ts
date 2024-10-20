@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListUser } from "../../../components/list/usersList";
-import { User, usersDelet, usersRequest } from "../../../server/endpoints";
+import { User, usersDelet, usersRequest, usersRoleUpdate } from "../../../server/endpoints";
 import { HeaderContainer, ListContainer, PaginationContainer, UsersContainer } from "./style";
 import { Pagination } from "../../../components/Pagination";
 
@@ -30,6 +30,24 @@ export function Users() {
       setLoading(false);
     }
   }, []);
+
+    //Alterando o nível do usuário
+    const updateUserRole = async (id: number, newRole: string) => {
+      try {
+        await usersRoleUpdate(id, newRole);//Requisição para API passando o id do usuário e o novo nível
+        //Verificando se o id do usuário é o mesmo que estou alterando, pegando as props dele e alterando o 'role' por 'newRole'
+        const updateUsers = users.map((user) => user.id === id ? { ...user, role: newRole } : user)
+        console.log(updateUsers);
+        console.log(newRole);
+        
+        setUsers(updateUsers); //Setando a lista de users
+      } catch (error) {
+        const typedError = error as Error;
+        setError(typedError.message);
+      } finally {
+        setLoading(false);
+      }
+    }
 
 
   //Deletar usuário
@@ -65,7 +83,7 @@ export function Users() {
         <h1>Usuários</h1>
       </HeaderContainer>
       <ListContainer>
-        <ListUser users={users} deletUser={deletUser}/>
+        <ListUser users={users} deletUser={deletUser} updateUserRole={updateUserRole}/>
       </ListContainer>
       <PaginationContainer>
         <Pagination

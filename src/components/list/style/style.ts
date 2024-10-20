@@ -51,14 +51,14 @@ export const DenominacaoDiv = styled.div`
   width: 50%;
   background-color: var(--gray-200);
   padding: 0.2rem;
-  border-radius: 10px;
+  border-radius: 6px;
 `;
 
 export const DivContainer = styled.div`
   width: 20%;
   background-color: var(--gray-200);
   padding: 0.2rem;
-  border-radius: 10px;
+  border-radius: 6px;
 `;
 
 export const SelectInput = styled.select`

@@ -36,6 +36,7 @@ export interface Sala {
   localizacao: number;
   nome: string;
   quantidadeDeItens: string;
+  pdfUrl: string;
 }
 
 export const listSalas = async (): Promise<Sala[]> => {
@@ -101,3 +102,8 @@ export const usersDelet = async (id: number): Promise<void> => {
   const response = await api.delete(`/users/${id}`);
   return response.data;
 };
+
+
+
+
+// ==== DOCS ====

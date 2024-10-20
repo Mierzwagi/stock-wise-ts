@@ -15,9 +15,14 @@ import {
 type UserProps = {
   users: User[];
   deletUser: (userId: number) => void;
+  updateUserRole: (userId: number, newRole: string) => void;
 };
 
-export const ListUser: React.FC<UserProps> = ({ users, deletUser }) => {
+export const ListUser: React.FC<UserProps> = ({ users, deletUser, updateUserRole }) => {
+
+  const handleUpdateUserRole = (userId: number, newRole: string) => {
+    updateUserRole(userId, newRole);
+  };
 
 const handleDeletUser = (userId: number) => {
 const confirmed = window.confirm('Certeza que deseja excluir esse usuário?');
@@ -50,13 +55,13 @@ if(confirmed){
             <strong>{user.email}</strong>
           </DenominacaoDiv>
           
-            <SelectInput>
-              <option value="">USER</option>
-              <option value="">ADMIN</option>
+            <SelectInput value={user.role} onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}>
+              <option value="USER">USUÁRIO</option>
+              <option value="ADMIN">ADMINISTRADOR</option>
             </SelectInput>
   
           <button onClick={() => handleDeletUser(user.id)}>
-            <FaTrashCan size={30} color="#5907AF" />
+            <FaTrashCan size={22} color="#5907AF" />
           </button>
         </ListContainer>
       ))}
