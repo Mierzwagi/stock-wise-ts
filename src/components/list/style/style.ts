@@ -93,3 +93,30 @@ export const SelectInput = styled.select`
     }
   }
 `;
+
+export const WelcomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  width: 100%;
+
+  h1 {
+    background-image: var(--gradient-dark);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 3rem;
+  }
+
+  div {
+    display: flex;
+  }
+
+  img {
+    width: 80%;
+    margin: 0 auto;
+  }
+`;

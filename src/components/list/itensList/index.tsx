@@ -1,5 +1,6 @@
 import { FaImages } from "react-icons/fa6";
 import { Item } from "../../../server/endpoints";
+import ImgWelcome from "../../../assets/images/img-welcome1.svg"
 import {
   DenominacaoDiv,
   DivContainer,
@@ -9,6 +10,7 @@ import {
   IMG,
   ItensContainer,
   ListContainer,
+  WelcomeContainer
 } from "../style/style";
 
 //Recebendo a lista de Itens por Props
@@ -19,7 +21,14 @@ interface ItensProps {
 //React Functional Component onde recebe propriedades
 export const ListItens: React.FC<ItensProps> = ({ itens }) => {
   if (!Array.isArray(itens) || itens.length === 0) {
-    return <p>Sem itens nesta sala</p>;
+    return (
+      <WelcomeContainer>
+        <h1>StockWise</h1>
+        <div>
+          <img src={ImgWelcome} alt="" />
+        </div>
+      </WelcomeContainer>
+    );
   }
 
   return (

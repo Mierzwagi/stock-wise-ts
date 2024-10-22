@@ -10,8 +10,8 @@ export function Sidebar() {
     navigate("/");
   };
 
-  const handleDash = () => {
-    navigate("/signup");
+  const handleReport = () => {
+    navigate("/reports");
   };
 
   const handleUser = () => {
@@ -23,7 +23,7 @@ export function Sidebar() {
       <h1></h1>
       <IconsContainer>
         <button onClick={handleItens}><FaBoxOpen size={50} color="white" /></button>
-        <button onClick={handleDash}><FaFileInvoice size={50} color="white" /></button>
+        <button onClick={handleReport}><FaFileInvoice size={50} color="white" /></button>
         <button onClick={handleUser}><FaUserLarge size={50} color="white" /></button>
       </IconsContainer>
     </SidebarContainer>

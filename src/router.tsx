@@ -6,6 +6,7 @@ import { Users } from "./pages/app/users";
 import Auth from "./pages/layout/authLayout/auth";
 import { SignIn } from "./pages/auth/signIn";
 import { SignUp } from "./pages/auth/signUp";
+import { Reports } from "./pages/app/report";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Itens /> },
       { path: "/users", element: <Users /> },
+      { path: "/reports", element: <Reports /> }
     ],
   },
   {

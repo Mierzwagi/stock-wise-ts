@@ -79,7 +79,7 @@ export function Itens() {
     fetchSala();
   }, []);
 
-  //Bucas os iten sao mudas a sala
+
   useEffect(() => {
     if (selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
@@ -114,10 +114,17 @@ export function Itens() {
     <ItensContainer>
       <HeaderContainer>
         <IntensListContainer>
-          {selectedSala && <h3>{selectedSala.nome}</h3>}
+          {selectedSala ? (
+            <h3>{selectedSala.nome}</h3>
+          ) : (
+            <h3>Seja Bem-Vindo</h3>
+          )}
         </IntensListContainer>
 
         <SelectInput value={selectSala} onChange={handleSalaChange}>
+          <option value="" disabled selected>
+            Selecione uma Sala
+          </option>
           {salas.map((sala) => (
             <option key={sala.localizacao} value={sala.localizacao}>
               {sala.nome}
@@ -128,17 +135,19 @@ export function Itens() {
       <ListContainer>
         <ListItens itens={itens} />
       </ListContainer>
+      {selectSala && (
+        <PaginationContainer>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+            totalPages={totalPages}
+          />
+          <ButtonRound onClick={handleOpen}>
+            <FaPaperclip size={30} />
+          </ButtonRound>
+        </PaginationContainer>
+      )}
 
-      <PaginationContainer>
-        <Pagination
-          currentPage={currentPage}
-          onPageChange={setCurrentPage}
-          totalPages={totalPages}
-        />
-        <ButtonRound onClick={handleOpen}>
-          <FaPaperclip size={30} />
-        </ButtonRound>
-      </PaginationContainer>
       <MyModal isOpen={open} handleClose={handleClose} />
     </ItensContainer>
   );
