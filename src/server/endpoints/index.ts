@@ -107,3 +107,21 @@ export const usersDelet = async (id: number): Promise<void> => {
 
 
 // ==== DOCS ====
+export const uploadFile = async (file: File): Promise<void> => {
+  //Permite mandar um arquivo através de um arequisição
+  const formData = new FormData();
+  formData.append('file', file)
+
+  try {
+    const response = await api.post(`/upload-pdf`, formData, {
+      headers:{
+        "Content-Type": "multipart/form-data",
+      }
+    });
+    console.log('Arquivo anexado com sucesso', response.data);
+    
+  } catch (error) {
+    console.error("Erro ao anexar o arquivo", error);
+    throw error;
+  }
+};
