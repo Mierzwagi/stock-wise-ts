@@ -113,7 +113,7 @@ export const uploadFile = async (file: File): Promise<void> => {
   formData.append('file', file)
 
   try {
-    const response = await api.post(`/upload-pdf`, formData, {
+    const response = await api.post(`/seed/createItens`, formData, {
       headers:{
         "Content-Type": "multipart/form-data",
       }
@@ -121,7 +121,22 @@ export const uploadFile = async (file: File): Promise<void> => {
     console.log('Arquivo anexado com sucesso', response.data);
     
   } catch (error) {
-    console.error("Erro ao anexar o arquivo", error);
+    console.error("Erro ao anexzar o arquivo", error);
     throw error;
   }
 };
+
+export interface Report {
+  id: number;
+  nome: string;
+  status: string;
+  url: string;
+  salaId: string;
+  dataCriacao: string;
+}
+
+export const listReports = async (localizacao?: string): Promise<Report[]> => {
+  const response = await api.get(`/salas/${localizacao}/relatorios`);
+  return response.data;
+};
+

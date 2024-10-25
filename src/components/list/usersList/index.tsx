@@ -61,7 +61,7 @@ if(confirmed){
             </SelectInput>
   
           <button onClick={() => handleDeletUser(user.id)}>
-            <FaTrashCan size={22} color="#5907AF" />
+            <FaTrashCan size={22} color="#222025" />
           </button>
         </ListContainer>
       ))}
