@@ -133,10 +133,16 @@ export interface Report {
   url: string;
   salaId: string;
   dataCriacao: string;
+  dataFinal: string;
 }
 
-export const listReports = async (localizacao?: string): Promise<Report[]> => {
-  const response = await api.get(`/salas/${localizacao}/relatorios`);
-  return response.data;
+export const listReports = async (localizacao?: string, page: string = "1", dataCriacao?:string, dataFinal? : string): Promise<Pageable<Report>> => {
+  console.log(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`);
+  const response = await api.get(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}&dataFinal=${dataFinal}`);
+  return {
+    data: response.data.data,
+    totalItems: response.data.totalItems, 
+    totalPages: response.data.totalPages,
+    currentPage: response.data.currentPage, 
+  };
 };
-

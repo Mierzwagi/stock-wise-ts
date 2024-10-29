@@ -1,20 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListReports } from "../../../components/list/reportsList";
 import {
+  listReports,
+  listSalas,
+  Report,
+  Sala,
+} from "../../../server/endpoints";
+import {
+  SelectInput,
   HeaderContainer,
   ListContainer,
   PaginationContainer,
   UsersContainer,
-} from "../users/style";
-import {  listReports, listSalas, Report, Sala } from "../../../server/endpoints";
-import { SelectInput } from "./style";
+  DateInput,
+} from "./style";
+import { Pagination } from "../../../components/Pagination";
 
 export function Reports() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [selectSala, setSelectSala] = useState<string>("");
+  const [selectDateFirst, setSelectDateFirst] = useState<string>("");
+  const [selectDateLast, setSelectDateLast] = useState<string>("");
   const [report, setReport] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //Buscando as Salas
   const fetchSala = async () => {
@@ -36,34 +47,47 @@ export function Reports() {
     }
   };
 
-  const fechReports = useCallback (async (localizacao: string) => {
-    setLoading(true);
-    try {
-      const response = await listReports(localizacao);
-      console.log("Relatórios:", response);
-      setReport(response);
-
-    } catch (error) {
-      const typedError = error as Error;
-      setError(typedError.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [])
+  const fechReports = useCallback(
+    async (localizacao: string, page: number = 1, dataCriacao?: string, dataFinal?: string) => {
+      setLoading(true);
+      try {
+        const response = await listReports(
+          localizacao,
+          page.toString(),
+          dataCriacao,
+          dataFinal
+        );
+        console.log("Relatórios:", response);
+        if (response) {
+          console.log("Itens recebidos da API:", response);
+          setReport(response.data);
+          setTotalPages(response.totalPages); // Atualiza o total de páginas
+        } else {
+          setReport([]); //limpa a lista
+          setError("Não foi possível carregar os relatórios.");
+        }
+      } catch (error) {
+        const typedError = error as Error;
+        setError(typedError.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     fetchSala();
   }, []);
 
-
   useEffect(() => {
     if (selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
-      fechReports(selectSala); //Busca os itens de acordo com a sala e a página selecionada
+      fechReports(selectSala, currentPage, selectDateFirst, selectDateLast); //Busca os itens de acordo com a sala e a página selecionada
     } else {
       setReport([]);
     }
-  }, [selectSala, fechReports]);
+  }, [selectSala, currentPage, fechReports, selectDateFirst, selectDateLast]);
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -74,16 +98,22 @@ export function Reports() {
   }
 
   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const salaId = e.target.value;
-    console.log("sala selecionada", salaId);
-    setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
+    console.log("sala selecionada", e.target.value);
+    setSelectSala(e.target.value); //Atualiza de acordo com a sala selecionada
+    setCurrentPage(1);
+  };
+
+  const handleDateFirst = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectDateFirst(e.target.value);
+  };
+  const handleDateLast = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectDateLast(e.target.value); //Atualiza de acordo com a data final selecionada
   };
 
   return (
     <UsersContainer>
+      <h1>Relatórios</h1>
       <HeaderContainer>
-        <h1>Relatórios</h1>
-
         <SelectInput value={selectSala} onChange={handleSalaChange}>
           <option value="" disabled selected>
             Selecione uma Sala
@@ -94,11 +124,33 @@ export function Reports() {
             </option>
           ))}
         </SelectInput>
+        <div>
+        <label htmlFor="">Data Inicial:</label>
+          <DateInput
+            type="date"
+            value={selectDateFirst}
+            onChange={handleDateFirst}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Data Final:</label>
+          <DateInput
+            type="date"
+            value={selectDateLast}
+            onChange={handleDateLast}
+          />
+        </div>
       </HeaderContainer>
       <ListContainer>
-        <ListReports reports={report}/>
+        <ListReports reports={report} />
       </ListContainer>
-      <PaginationContainer></PaginationContainer>
+      <PaginationContainer>
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          totalPages={totalPages}
+        />
+      </PaginationContainer>
     </UsersContainer>
   );
 }

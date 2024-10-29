@@ -44,12 +44,12 @@ export function MyModal({ isOpen, handleClose }: ModalProps) {
       aria-describedby="modal-modal-description"
     >
       <BoxStyled>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
           Arraste o arquivo ou clique aqui para Anexar
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Selecione um arquivo Excel para upload:
-        </Typography>
+        </Typography> */}
         <input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
 
         {/* Exibe o nome do arquivo selecionado */}
