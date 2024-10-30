@@ -12,7 +12,7 @@ import {
 } from "./style";
 import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
-import { MyModal } from "../../../components/modal";
+import { ModalUpload } from "../../../components/modal/modalAnexo";
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
@@ -78,7 +78,6 @@ export function Itens() {
   useEffect(() => {
     fetchSala();
   }, []);
-
 
   useEffect(() => {
     if (selectSala) {
@@ -147,8 +146,7 @@ export function Itens() {
           </ButtonRound>
         </PaginationContainer>
       )}
-
-      <MyModal isOpen={open} handleClose={handleClose} />
+      <ModalUpload isOpen={open} handleClose={handleClose} />
     </ItensContainer>
   );
 }

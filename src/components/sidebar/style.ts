@@ -34,3 +34,20 @@ export const IconsContainer = styled.div`
   gap: 2rem;
 `;
 
+interface ButtonLabel {
+  variant?: boolean;
+}
+export const Button = styled.button<ButtonLabel>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  
+  span {
+    display: ${({ variant }) => (variant ? "inline" : "none")};
+    font-size: 16px;
+  }
+`;

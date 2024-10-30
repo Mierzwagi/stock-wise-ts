@@ -1,6 +1,6 @@
 import { FaImages } from "react-icons/fa6";
 import { Item } from "../../../server/endpoints";
-import ImgWelcome from "../../../assets/images/img-welcome1.svg"
+import ImgWelcome from "../../../assets/images/img-welcome1.svg";
 import {
   DenominacaoDiv,
   DivContainer,
@@ -10,8 +10,10 @@ import {
   IMG,
   ItensContainer,
   ListContainer,
-  WelcomeContainer
+  WelcomeContainer,
 } from "../style/style";
+import { useState } from "react";
+import { ModalImage } from "../../modal/modalImg";
 
 //Recebendo a lista de Itens por Props
 interface ItensProps {
@@ -20,6 +22,27 @@ interface ItensProps {
 
 //React Functional Component onde recebe propriedades
 export const ListItens: React.FC<ItensProps> = ({ itens }) => {
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR', {
+      timeZone: 'America/Sao_Paulo', 
+    });
+  };
+
+  const [open, setOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+
+  //Modal
+  const handleOpen = (imgUrl: string) => {
+    setSelectedImageUrl(imgUrl);
+    setOpen(true);
+  };
+  const handleClose = () =>{
+    setOpen(false);
+    setSelectedImageUrl(null)
+  }
+
   if (!Array.isArray(itens) || itens.length === 0) {
     return (
       <WelcomeContainer>
@@ -55,13 +78,14 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
             <strong>{item.nome}</strong>
           </DenominacaoDiv>
           <DivContainer>
-            <strong>{item.dataDeIncorporacao}</strong>
+            <strong>{formatDate(item.dataDeIncorporacao)}</strong>
           </DivContainer>
-          <button>
+          <button onClick={() => handleOpen(item.url)}>
             <FaImages size={30} color="#5907AF" />
           </button>
         </ListContainer>
       ))}
+      <ModalImage isOpen={open} handleClose={handleClose} imgUrl={selectedImageUrl} />
     </ItensContainer>
   );
 };

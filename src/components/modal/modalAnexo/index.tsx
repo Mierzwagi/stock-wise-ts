@@ -1,16 +1,16 @@
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { BoxStyled } from "./style";
+import { BoxStyled } from "../style";
 import { useState } from "react";
-import { uploadFile } from "../../server/endpoints";
+import { uploadFile } from "../../../server/endpoints";
 
 interface ModalProps {
   isOpen: boolean;
   handleClose: () => void;
 }
 
-export function MyModal({ isOpen, handleClose }: ModalProps) {
+export function ModalUpload({ isOpen, handleClose }: ModalProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null); //Armazena o arquivo,
   const [uploading, setUploading] = useState(false);
 
