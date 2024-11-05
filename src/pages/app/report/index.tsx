@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListReports } from "../../../components/list/reportsList";
 import {
+  allReports,
   listReports,
   listSalas,
   Report,
@@ -48,7 +49,12 @@ export function Reports() {
   };
 
   const fechReports = useCallback(
-    async (localizacao: string, page: number = 1, dataCriacao?: string, dataFinal?: string) => {
+    async (
+      localizacao: string,
+      page: number = 1,
+      dataCriacao?: string,
+      dataFinal?: string
+    ) => {
       setLoading(true);
       try {
         const response = await listReports(
@@ -76,16 +82,36 @@ export function Reports() {
     []
   );
 
+  const fetchAllReports = async () => {
+    try {
+      const response = await allReports(); //Requisição para API
+      console.log("Relatórios:", response);
+      if (response) {
+        setReport(response.data); 
+      } else {
+        setReport([]); 
+        setError("Não foi possível carregar os usuários.");
+      }
+      
+    } catch (error) {
+      const typedError = error as Error;
+      setError(typedError.message);
+      setError("Não foi possível carregar as salas.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchSala();
   }, []);
 
   useEffect(() => {
-    if (selectSala) {
+    if (!selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
-      fechReports(selectSala, currentPage, selectDateFirst, selectDateLast); //Busca os itens de acordo com a sala e a página selecionada
+      fetchAllReports();
     } else {
-      setReport([]);
+      fechReports(selectSala, currentPage, selectDateFirst, selectDateLast); //Busca os itens de acordo com a sala e a página selecionada
     }
   }, [selectSala, currentPage, fechReports, selectDateFirst, selectDateLast]);
 
@@ -125,7 +151,7 @@ export function Reports() {
           ))}
         </SelectInput>
         <div>
-        <label htmlFor="">Data Inicial:</label>
+          <label htmlFor="">Data Inicial:</label>
           <DateInput
             type="date"
             value={selectDateFirst}

@@ -146,3 +146,9 @@ export const listReports = async (localizacao?: string, page: string = "1", data
     currentPage: response.data.currentPage, 
   };
 };
+
+
+export const allReports = async (): Promise<Pageable<Report>> => {
+  const response = await api.get(`/relatorios`);
+  return response.data;
+};

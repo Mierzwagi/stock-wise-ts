@@ -11,11 +11,13 @@ import {
 } from "../style/style";
 import { Report } from "../../../server/endpoints";
 
+
 interface ReportsProps {
   reports: Report[];
 }
 
 export const ListReports: React.FC<ReportsProps> = ({ reports }) => {
+//  const [allReports, setAllReports] = useState<Report[] | null>(null);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
