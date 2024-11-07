@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListItens } from "../../../components/list/itensList";
-import { FaPaperclip } from "react-icons/fa6";
+import { FaPaperclip, FaBars } from "react-icons/fa6";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
   HeaderContainer,
@@ -13,6 +13,7 @@ import {
 import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
 import { ModalUpload } from "../../../components/modal/modalAnexo";
+import { Sidebar } from "../../../components/sidebar";
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
@@ -23,7 +24,12 @@ export function Itens() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<number>(1); // Página atual
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   //Modal
   const handleOpen = () => setOpen(true);
@@ -32,7 +38,7 @@ export function Itens() {
   //Buscando as Salas
   const fetchSala = async () => {
     try {
-      const response = await listSalas(); //Requisição para API
+      const response = await listSalas(); 
       console.log("Salas:", response);
 
       if (Array.isArray(response)) {
@@ -53,14 +59,15 @@ export function Itens() {
   //useCaallback: hook que memoriza a função não deixando que ela seja replicada a cada renderização
   const fetchItens = useCallback(
     async (localizacao: string, page: number = 1) => {
+      const itemPerPage = window.innerHeight < 800 ? 10 : (window.innerHeight < 1900 ? 15 : 30);
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
-        const response = await listItens(localizacao, page.toString()); // Faz a requisição buscando a sala com a qnt de páginas
+        const response = await listItens(localizacao, page.toString(), itemPerPage); // Faz a requisição buscando a sala com a qnt de páginas
         if (response) {
           console.log("Itens recebidos da API:", response);
           setItens(response.data);
-          setTotalItems(response.totalItems); // Atualiza o total de itens em cada sala
-          setTotalPages(response.totalPages); // Atualiza o total de páginas
+          setTotalItems(response.totalItems); 
+          setTotalPages(response.totalPages); 
         } else {
           setItens([]); //limpa a lista
           setError("Não foi possível carregar os itens.");
@@ -111,6 +118,10 @@ export function Itens() {
 
   return (
     <ItensContainer>
+      <button onClick={toggleSidebar}>
+        <FaBars size={30} />
+      </button>
+      {isSidebarOpen && <Sidebar/>}
       <HeaderContainer>
         <IntensListContainer>
           {selectedSala ? (

@@ -28,3 +28,8 @@ export const BoxStyled = styled.div`
     border: 1px solid black;
   }
 `;
+
+
+export const ButtonMenu = styled.div`
+  
+`

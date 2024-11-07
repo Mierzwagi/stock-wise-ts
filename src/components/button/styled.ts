@@ -10,4 +10,8 @@ export const ButtonRoundStyle = styled.button`
     /* float: right;
     margin-right: 0.7rem; */
     cursor: pointer;
+
+    @media (max-width: 1200px) {
+    display: none;
+  }
 `

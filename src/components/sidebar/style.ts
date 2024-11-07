@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+
+
 export const SidebarContainer = styled.aside`
   width: 14%;
   height: 100%;
@@ -23,6 +25,13 @@ export const SidebarContainer = styled.aside`
       background-color: #9d4edd;
     }
   }
+
+  //Responsividade
+  @media (max-width: 1200px) {
+    //display: none;
+    height: 24%;
+    position: absolute;
+  }
 `;
 
 export const IconsContainer = styled.div`
@@ -45,7 +54,7 @@ export const Button = styled.button<ButtonLabel>`
   border: none;
   cursor: pointer;
   color: white;
-  
+
   span {
     display: ${({ variant }) => (variant ? "inline" : "none")};
     font-size: 16px;

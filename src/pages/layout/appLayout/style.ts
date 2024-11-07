@@ -7,4 +7,9 @@ export const DefaultConatiner = styled.main`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  @media (max-width: 1200px) {
+    align-items: start;
+  }
+
 `;

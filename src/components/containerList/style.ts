@@ -8,4 +8,8 @@ export const ContainerHome = styled.div`
   padding: 1rem 2rem;
   border-radius: 10px;
   box-shadow: 20px 14px 20px 3px rgba(0, 0, 0, 0.2);
+  //Responsividade
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 `;

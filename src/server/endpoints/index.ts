@@ -19,10 +19,11 @@ export interface Pageable<T> {
 
 export const listItens = async (
   localizacao?: string,
-  page: string = "1"
+  page: string = "1",
+  itemsPerPage: number = 20
 ): Promise<Pageable<Item>> => {
   console.log(`/salas/${localizacao}/itens?page=${page}`);
-  const response = await api.get(`/salas/${localizacao}/itens?page=${page}`);
+  const response = await api.get(`/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}`);
   return {
     data: response.data.data, // Itens
     totalItems: response.data.totalItems, // Total de itens

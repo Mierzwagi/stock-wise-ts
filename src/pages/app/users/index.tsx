@@ -53,7 +53,7 @@ export function Users() {
   //Deletar usuário
   const deletUser = async (id: number) => {
     try {
-      await usersDelet(id); //Requisição para API
+      await usersDelet(id); 
       //Criando uma nova lista de users cujo o ID seja diferente do qual foi excluido
       const updateUsers = users.filter((user) => user.id !== id);
       setUsers(updateUsers); //Setando a lista de users
