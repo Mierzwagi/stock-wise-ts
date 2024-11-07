@@ -5,11 +5,26 @@ export const BoxStyled = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 41%;
+  width: 50%;
   background-color: #fff;
   border: 2px solid #000;
   box-shadow: 24px 24px 24px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   border-radius: 8px;
-  height: 58%;
+  height: 92%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 60%;
+    justify-content: center;
+    border: 1px solid black;
+  }
 `;

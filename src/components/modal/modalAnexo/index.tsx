@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { BoxStyled } from "../style";
 import { useState } from "react";
 import { uploadFile } from "../../../server/endpoints";
+import { FaUpload } from "react-icons/fa6";
 
 interface ModalProps {
   isOpen: boolean;
@@ -44,13 +45,19 @@ export function ModalUpload({ isOpen, handleClose }: ModalProps) {
       aria-describedby="modal-modal-description"
     >
       <BoxStyled>
-        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-          Arraste o arquivo ou clique aqui para Anexar
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Selecione um arquivo Excel para upload:
-        </Typography> */}
-        <input type="file" accept=".xlsx,.xls" onChange={handleFileChange} />
+        <label htmlFor="file-upload">
+          <FaUpload size={60} color="#5907AF"/>
+          <Typography sx={{ mt: 2, color: "gray" }}>
+            Arraste o arquivo ou clique aqui para Anexar
+          </Typography>
+          <input
+            id="file-upload"
+            type="file"
+            accept=".xlsx,.xls"
+            onChange={handleFileChange}
+            style={{ display: "none" }} // Esconde o campo de input padrão
+          />
+        </label>
 
         {/* Exibe o nome do arquivo selecionado */}
         {selectedFile && (

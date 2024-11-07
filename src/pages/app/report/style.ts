@@ -24,6 +24,12 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+
+  div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
 export const SelectInput = styled.select`
@@ -57,7 +63,7 @@ export const SelectInput = styled.select`
   }
 `;
 
-export const DateInput = styled.input.attrs({ type: "date" })`
+export const DateInput = styled.input.attrs({ type: "month" })`
   background-color: var(--purple-100);
   padding: 0.4rem;
   cursor: pointer;
@@ -84,3 +90,5 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+

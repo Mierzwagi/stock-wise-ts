@@ -21,7 +21,6 @@ export function Reports() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [selectSala, setSelectSala] = useState<string>("");
   const [selectDateFirst, setSelectDateFirst] = useState<string>("");
-  const [selectDateLast, setSelectDateLast] = useState<string>("");
   const [report, setReport] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -111,9 +110,9 @@ export function Reports() {
       console.log("Sala selecionada mudou:", selectSala);
       fetchAllReports();
     } else {
-      fechReports(selectSala, currentPage, selectDateFirst, selectDateLast); //Busca os itens de acordo com a sala e a página selecionada
+      fechReports(selectSala, currentPage, selectDateFirst); //Busca os itens de acordo com a sala e a página selecionada
     }
-  }, [selectSala, currentPage, fechReports, selectDateFirst, selectDateLast]);
+  }, [selectSala, currentPage, fechReports, selectDateFirst]);
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -132,9 +131,6 @@ export function Reports() {
   const handleDateFirst = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectDateFirst(e.target.value);
   };
-  const handleDateLast = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectDateLast(e.target.value); //Atualiza de acordo com a data final selecionada
-  };
 
   return (
     <UsersContainer>
@@ -151,19 +147,11 @@ export function Reports() {
           ))}
         </SelectInput>
         <div>
-          <label htmlFor="">Data Inicial:</label>
+          <label htmlFor="">MÊS:</label>
           <DateInput
-            type="date"
+            type="month"
             value={selectDateFirst}
             onChange={handleDateFirst}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Data Final:</label>
-          <DateInput
-            type="date"
-            value={selectDateLast}
-            onChange={handleDateLast}
           />
         </div>
       </HeaderContainer>
