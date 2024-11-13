@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import {
   SignInContainer,
@@ -19,7 +18,7 @@ export function SignUp() {
     senha: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
   const [isOn, setIsOn] = useState(false);
 
   const navigate = useNavigate();

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 
 export const ButtonRoundStyle = styled.button`
-    width: 60px;
-    height: 60px;
+    width: 3rem;
+    height: 3rem;
     background-color: var(--purple-100);
     border: none;
     border-radius: 100%;

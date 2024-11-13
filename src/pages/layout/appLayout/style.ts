@@ -11,5 +11,9 @@ export const DefaultConatiner = styled.main`
   @media (max-width: 1200px) {
     align-items: start;
   }
+`;
 
+export const ButtonSidebar = styled.button`
+  position: absolute;
+  z-index: 1;
 `;

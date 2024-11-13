@@ -134,12 +134,11 @@ export interface Report {
   url: string;
   salaId: string;
   dataCriacao: string;
-  dataFinal: string;
 }
 
-export const listReports = async (localizacao?: string, page: string = "1", dataCriacao?:string, dataFinal? : string): Promise<Pageable<Report>> => {
+export const listReports = async (localizacao?: string, page: string = "1", dataCriacao?:string): Promise<Pageable<Report>> => {
   console.log(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`);
-  const response = await api.get(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}&dataFinal=${dataFinal}`);
+  const response = await api.get(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`);
   return {
     data: response.data.data,
     totalItems: response.data.totalItems, 

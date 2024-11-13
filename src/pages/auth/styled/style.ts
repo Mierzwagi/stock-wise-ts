@@ -19,16 +19,26 @@ export const SignInForm = styled.form`
   input {
     background-color: var(--gray-200);
     padding: 0.6rem;
+    width: 80%;
+
   }
 
   button {
-    background-image: var(--gradient);
+    //background-image: var(--gradient);
+    background-color: var(--purple-300);
     width: 6rem;
     height: 2.4rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     color: var(--white);
+
+    &:hover{
+      background-color: transparent;
+      color: var(--black);
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      border: 3px solid var(--purple-400);
+    }
   }
 `;
 

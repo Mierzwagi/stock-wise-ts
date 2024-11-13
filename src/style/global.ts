@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
 
     :focus{
         outline: transparent;
-        box-shadow: 0 0 0 2px var(--purple-400);
+        //box-shadow: 0 0 0 2px var(--purple-400);
     }
     *{
         margin: 0;

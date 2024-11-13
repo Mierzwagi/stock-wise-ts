@@ -52,7 +52,6 @@ export function Reports() {
       localizacao: string,
       page: number = 1,
       dataCriacao?: string,
-      dataFinal?: string
     ) => {
       setLoading(true);
       try {
@@ -60,7 +59,6 @@ export function Reports() {
           localizacao,
           page.toString(),
           dataCriacao,
-          dataFinal
         );
         console.log("Relatórios:", response);
         if (response) {
@@ -110,6 +108,7 @@ export function Reports() {
       console.log("Sala selecionada mudou:", selectSala);
       fetchAllReports();
     } else {
+      
       fechReports(selectSala, currentPage, selectDateFirst); //Busca os itens de acordo com a sala e a página selecionada
     }
   }, [selectSala, currentPage, fechReports, selectDateFirst]);

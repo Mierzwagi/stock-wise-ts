@@ -1,6 +1,5 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import {
-  PasswordInput,
   SignInContainer,
   SignInForm,
   SignInTitle,
@@ -45,7 +44,7 @@ export function SignIn() {
     }
   };
 
-  // eVento para manipular o input 
+  // eVento para manipular o input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setSignup((prev) => ({ ...prev, [name]: value }));
@@ -69,23 +68,17 @@ export function SignIn() {
           onChange={handleChange}
           required
         />
-        <PasswordInput>
-          <input
-            id="senha"
-            type="password"
-            name="senha"
-            placeholder="Senha"
-            value={signup.senha}
-            onChange={handleChange}
-            required
-          />
-         {/*  <FaEye
-          id="btn-senha"
-            size={20}
-            color="#808080"
-            style={{ position: "absolute", left: "40%" }}
-          /> */}
-        </PasswordInput>
+
+        <input
+          id="senha"
+          type="password"
+          name="senha"
+          placeholder="Senha"
+          value={signup.senha}
+          onChange={handleChange}
+          required
+        />
+        {/* <a>Esqueceu a senha?</a> */}
 
         <button type="submit" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}

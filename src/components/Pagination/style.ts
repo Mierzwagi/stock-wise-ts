@@ -11,7 +11,7 @@ export const PaginationContainer = styled.div`
 `;
 
 interface ButtonActiveStyle {
-  active?: boolean;
+  $active?: boolean;
 }
 
 export const IconsStyles = styled.button<ButtonActiveStyle>`
@@ -32,7 +32,7 @@ export const IconsStyles = styled.button<ButtonActiveStyle>`
     width: 24px;
     height: 24px;
     color: ${(props) =>
-      props.active ? "var(--purple-400)" : "var(--gray-300)"};
+      props.$active ? "var(--purple-400)" : "var(--gray-300)"};
   }
 `;
 
@@ -42,11 +42,11 @@ export const PageButtonsStyles = styled.button<ButtonActiveStyle>`
   cursor: pointer;
 
   background-color: ${(props) =>
-    props.active ? "var(--purple-200)" : "var(--gray-200)"};
-  color: ${(props) => (props.active ? "var(--white)" : "var(--black)")};
+    props.$active ? "var(--purple-200)" : "var(--gray-200)"};
+  color: ${(props) => (props.$active ? "var(--white)" : "var(--black)")};
 
-  width: 40px;
-  height: 40px;
+  width: 2rem;
+  height: 2rem;
   margin: 0 8px;
   border-radius: 6px;
 
@@ -55,7 +55,7 @@ export const PageButtonsStyles = styled.button<ButtonActiveStyle>`
     box-shadow: none;
   }
 
-  &:houver {
+  &:hover {
     filter: brightness(0.9);
   }
 `;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListItens } from "../../../components/list/itensList";
-import { FaPaperclip, FaBars } from "react-icons/fa6";
+import { FaPaperclip } from "react-icons/fa6";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
   HeaderContainer,
@@ -13,7 +13,6 @@ import {
 import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
 import { ModalUpload } from "../../../components/modal/modalAnexo";
-import { Sidebar } from "../../../components/sidebar";
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
@@ -25,11 +24,11 @@ export function Itens() {
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+ 
 
-  const toggleSidebar = () => {
+ /*  const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  };
+  }; */
 
   //Modal
   const handleOpen = () => setOpen(true);
@@ -59,7 +58,7 @@ export function Itens() {
   //useCaallback: hook que memoriza a função não deixando que ela seja replicada a cada renderização
   const fetchItens = useCallback(
     async (localizacao: string, page: number = 1) => {
-      const itemPerPage = window.innerHeight < 800 ? 10 : (window.innerHeight < 1900 ? 15 : 30);
+      const itemPerPage = window.innerHeight <= 800 ? 10 : (window.innerHeight < 1900 ? 15 : 30);
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
         const response = await listItens(localizacao, page.toString(), itemPerPage); // Faz a requisição buscando a sala com a qnt de páginas
@@ -118,10 +117,7 @@ export function Itens() {
 
   return (
     <ItensContainer>
-      <button onClick={toggleSidebar}>
-        <FaBars size={30} />
-      </button>
-      {isSidebarOpen && <Sidebar/>}
+  
       <HeaderContainer>
         <IntensListContainer>
           {selectedSala ? (
@@ -130,9 +126,14 @@ export function Itens() {
             <h3>Seja Bem-Vindo</h3>
           )}
         </IntensListContainer>
+        {/* <div>
+          {salas.map((sala) => (
+            <h1>{sala.quantidadeDeItens}</h1>
+          ))}
+        </div> */}
 
-        <SelectInput value={selectSala} onChange={handleSalaChange}>
-          <option value="" disabled selected>
+        <SelectInput value={selectSala} onChange={handleSalaChange} >
+          <option value="" disabled >
             Selecione uma Sala
           </option>
           {salas.map((sala) => (
@@ -153,7 +154,7 @@ export function Itens() {
             totalPages={totalPages}
           />
           <ButtonRound onClick={handleOpen}>
-            <FaPaperclip size={30} />
+            <FaPaperclip size={25} />
           </ButtonRound>
         </PaginationContainer>
       )}
