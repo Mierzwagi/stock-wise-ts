@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   SignInContainer,
-  SignInForm,
+  Form,
   SignInTitle,
   SwitchContainer,
 } from "../styled/style";
@@ -59,7 +59,7 @@ export function SignIn() {
           <ToggleButton isOn={isOn} handle={handleToggle} />
         </SwitchContainer>
       </SignInTitle>
-      <SignInForm onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           type="text"
           name="email"
@@ -83,7 +83,7 @@ export function SignIn() {
         <button type="submit" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}
         </button>
-      </SignInForm>
+      </Form>
     </SignInContainer>
   );
 }

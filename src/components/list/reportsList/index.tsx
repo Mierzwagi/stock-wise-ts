@@ -1,9 +1,9 @@
 import { FaFilePdf } from "react-icons/fa6";
 import {
   DenominacaoDiv,
-  DivContainer,
+  DivId,
   HeaderContainer,
-  HeaderTitle,
+  HeaderId,
   HeaderTitleDenominacao,
   IMG,
   ItensContainer,
@@ -11,27 +11,26 @@ import {
 } from "../style/style";
 import { Report } from "../../../server/endpoints";
 
-
 interface ReportsProps {
   reports: Report[];
 }
 
 export const ListReports: React.FC<ReportsProps> = ({ reports }) => {
-//  const [allReports, setAllReports] = useState<Report[] | null>(null);
+  //  const [allReports, setAllReports] = useState<Report[] | null>(null);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('pt-BR', {
-      timeZone: 'America/Sao_Paulo', 
+    return date.toLocaleDateString("pt-BR", {
+      timeZone: "America/Sao_Paulo",
     });
   };
 
   return (
     <ItensContainer>
       <HeaderContainer>
-        <HeaderTitle>
+        <HeaderId>
           <strong>Data</strong>
-        </HeaderTitle>
+        </HeaderId>
         <HeaderTitleDenominacao>
           <strong>Relatório</strong>
         </HeaderTitleDenominacao>
@@ -41,9 +40,9 @@ export const ListReports: React.FC<ReportsProps> = ({ reports }) => {
       {reports?.length > 0 ? (
         reports.map((report) => (
           <ListContainer key={report.id}>
-            <DivContainer>
+            <DivId>
               <strong>{formatDate(report.dataCriacao)}</strong>
-            </DivContainer>
+            </DivId>
             <DenominacaoDiv>
               <strong>{report.nome}</strong>
             </DenominacaoDiv>

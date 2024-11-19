@@ -11,49 +11,45 @@ export const SidebarContainer = styled.aside`
   background-image: var(--gradient);
   border-radius: 0 20px 0 20px;
 
-  h1{
-    padding: 1rem;
+  h1 {
+    padding: 3rem;
     color: white;
-    position: relative;
-    font-weight: 200;
-    bottom: 12rem;
+    position: absolute;
+    font-weight: 400;
+    top: 0rem;
     font-size: 2rem;
     text-align: center;
-  }
 
-  button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    width: 100%;
-    
-    align-items: center;
+    @media (max-width: 700px) {
     padding: 1rem;
-
-    &:hover {
-      background-color: #9d4edd;
-    }
   }
+  }
+
+
 
   //Responsividade
   @media (max-width: 1200px) {
     height: 50%;
     width: 20%;
     position: absolute;
+    border-radius: 20px 20px 20px 20px;
   }
+
+  @media (max-width: 700px) {
+    width: 44%;
+  }
+
+
 `;
 
 export const IconsContainer = styled.div`
-  width: 80%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 
-  @media (max-width: 1200px) {
-    height: 24%;
-  }
 `;
 
 interface ButtonLabel {
@@ -67,9 +63,20 @@ export const Button = styled.button<ButtonLabel>`
   border: none;
   cursor: pointer;
   color: white;
-  span{
-    width: 80%;
+  justify-content: flex-start;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  width: 90%;
+
+  align-items: center;
+  padding: 1rem;
+
+  &:hover {
+    background-color: #9d4edd;
   }
 
-
+  @media (max-width: 1200px) {
+    width: 78%;
+  }
 `;

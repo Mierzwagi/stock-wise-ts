@@ -2,11 +2,11 @@ import { FaTrashCan } from "react-icons/fa6";
 import { User } from "../../../server/endpoints";
 
 import {
-  DenominacaoDiv,
-  DivContainer,
+  DivId,
+  DivIncorporacao,
   HeaderContainer,
-  HeaderTitle,
-  HeaderTitleDenominacao,
+  HeaderId,
+  HeaderIncorporacao,
   IMG,
   ItensContainer,
   ListContainer,
@@ -19,48 +19,56 @@ type UserProps = {
   updateUserRole: (userId: number, newRole: string) => void;
 };
 
-export const ListUser: React.FC<UserProps> = ({ users, deletUser, updateUserRole }) => {
-
+export const ListUser: React.FC<UserProps> = ({
+  users,
+  deletUser,
+  updateUserRole,
+}) => {
   const handleUpdateUserRole = (userId: number, newRole: string) => {
     updateUserRole(userId, newRole);
   };
 
-const handleDeletUser = (userId: number) => {
-const confirmed = window.confirm('Certeza que deseja excluir esse usuário?');
-if(confirmed){
-  deletUser(userId);
-}
-}
+  const handleDeletUser = (userId: number) => {
+    const confirmed = window.confirm(
+      "Certeza que deseja excluir esse usuário?"
+    );
+    if (confirmed) {
+      deletUser(userId);
+    }
+  };
 
   return (
     <ItensContainer>
       <HeaderContainer>
-        <HeaderTitle>
+        <HeaderId>
           <strong>Nome</strong>
-        </HeaderTitle>
-        <HeaderTitleDenominacao>
+        </HeaderId>
+        <HeaderIncorporacao>
           <strong>E-MAIL</strong>
-        </HeaderTitleDenominacao>
-        <HeaderTitle>
+        </HeaderIncorporacao>
+        <HeaderId>
           <strong>NÍVEL</strong>
-        </HeaderTitle>
+        </HeaderId>
         <IMG></IMG>
       </HeaderContainer>
 
       {users.map((user) => (
         <ListContainer key={user.id}>
-          <DivContainer>
+          <DivId>
             <strong>{user.nome}</strong>
-          </DivContainer>
-          <DenominacaoDiv>
+          </DivId>
+          <DivIncorporacao>
             <strong>{user.email}</strong>
-          </DenominacaoDiv>
-          
-            <SelectInput value={user.role} onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}>
-              <option value="USER">USUÁRIO</option>
-              <option value="ADMIN">ADMINISTRADOR</option>
-            </SelectInput>
-  
+          </DivIncorporacao>
+
+          <SelectInput
+            value={user.role}
+            onChange={(e) => handleUpdateUserRole(user.id, e.target.value)}
+          >
+            <option value="USER">USUÁRIO</option>
+            <option value="ADMIN">ADMINISTRADOR</option>
+          </SelectInput>
+
           <button onClick={() => handleDeletUser(user.id)}>
             <FaTrashCan size={22} color="#5907AF" />
           </button>

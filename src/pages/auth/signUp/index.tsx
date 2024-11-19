@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   SignInContainer,
-  SignInForm,
+  Form,
   SignInTitle,
   SwitchContainer,
 } from "../styled/style";
@@ -59,22 +59,22 @@ export function SignUp() {
           <ToggleButton isOn={isOn} handle={handleToggle} />
         </SwitchContainer>
       </SignInTitle>
-      <SignInForm onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="nome" 
+          name="nome"
           placeholder="Nome"
           value={userData.nome}
           onChange={handleChange}
-          required 
+          required
         />
         <input
           type="email"
-          name="email" 
+          name="email"
           placeholder="Email"
           value={userData.email}
           onChange={handleChange}
-          required 
+          required
         />
         <input
           type="password"
@@ -82,12 +82,12 @@ export function SignUp() {
           placeholder="Senha"
           value={userData.senha}
           onChange={handleChange}
-          required 
+          required
         />
         <button type="submit" disabled={loading}>
           {loading ? "Criando..." : "Criar"}
         </button>
-      </SignInForm>
+      </Form>
     </SignInContainer>
   );
 }

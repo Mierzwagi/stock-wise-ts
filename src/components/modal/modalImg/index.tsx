@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { BoxStyled } from "../style";
+import { BoxStyled, ImgItem } from "../style";
 
 interface ModalProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ export function ModalImage({ isOpen, handleClose, imgUrl }: ModalProps) {
           Imagem do item
         </Typography>
         {imgUrl?(
-          <img src={imgUrl} alt="Imagem do item" style={{ width: "100%", height: "90%" }} />
+          <ImgItem src={imgUrl} alt="Imagem do item"  />
         ):(
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Nenhuma imagem disponível para este item.

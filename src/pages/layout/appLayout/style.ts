@@ -16,4 +16,7 @@ export const DefaultConatiner = styled.main`
 export const ButtonSidebar = styled.button`
   position: absolute;
   z-index: 1;
+  padding: 0.5rem;
+  border: none;
+  background-color: transparent;
 `;

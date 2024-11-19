@@ -18,6 +18,10 @@ export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 export const SelectInput = styled.select`
@@ -55,6 +59,10 @@ export const SelectInput = styled.select`
 export const IntensListContainer = styled.div`
   h3 {
     font-size: 1.2rem;
+
+    @media (max-width: 700px){
+      font-size: 0.8rem;
+    }
   }
 `;
 

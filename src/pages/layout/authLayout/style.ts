@@ -49,7 +49,15 @@ export const AuthContainer = styled.div`
   img {
     width: 50%;
     align-self: flex-end;
+    @media (max-width: 1200px) {
+      width: 64%;
   }
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+
 `;
 
 export const AuthContent = styled.div`

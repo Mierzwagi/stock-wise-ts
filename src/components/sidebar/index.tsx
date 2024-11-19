@@ -1,26 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import { Button, IconsContainer,  SidebarContainer } from "./style";
 import { FaUserLarge, FaFileInvoice, FaBoxOpen } from "react-icons/fa6";
-import { useState } from "react";
-//import { ModalSidebar } from "../modal/modalSidebar";
 
+interface SidebarProps{
+  onOptionSelect?: () => void;
+}
 
-export function Sidebar() {
+export function Sidebar({onOptionSelect}: SidebarProps) {
   const navigate = useNavigate();
-  const [, setLabel] = useState("");
+ 
 
   const handleItens = () => {
-    setLabel("itens");
+    onOptionSelect?.();
     navigate("/");
   };
 
   const handleReport = () => {
-    setLabel("reports");
+    onOptionSelect?.();
     navigate("/reports");
   };
 
   const handleUser = () => {
-    setLabel("users");
+    onOptionSelect?.();
     navigate("/users");
   };
 

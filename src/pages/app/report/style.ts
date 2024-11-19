@@ -25,7 +25,11 @@ export const HeaderContainer = styled.div`
   align-items: center;
   gap: 2rem;
 
-  div{
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
+
+  div {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -42,6 +46,10 @@ export const SelectInput = styled.select`
 
   display: flex;
   align-items: center;
+
+  @media (max-width: 700px) {
+    width: 60%;
+  }
 
   &:focus {
     outline: none;
@@ -67,7 +75,6 @@ export const DateInput = styled.input.attrs({ type: "month" })`
   background-color: var(--purple-100);
   padding: 0.4rem;
   cursor: pointer;
-
 `;
 
 export const ListContainer = styled.div`
@@ -90,5 +97,3 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
-

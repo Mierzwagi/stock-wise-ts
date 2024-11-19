@@ -41,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body{
         -webkit-font-smoothing: antialiased;
-        font-family: 'Arial', sans-serif;
+        font-family: "Montserrat", sans-serif;
     }
 
     input, textarea, button{

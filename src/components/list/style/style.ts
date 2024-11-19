@@ -9,10 +9,10 @@ export const HeaderContainer = styled.div`
   align-items: center;
   width: 100%;
   /* gap: 2rem; */
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
-export const HeaderTitle = styled.div`
+export const HeaderId = styled.div`
   width: 20%;
   padding: 0.2rem;
   border-radius: 10px;
@@ -22,6 +22,16 @@ export const HeaderTitleDenominacao = styled.div`
   padding: 0.2rem;
   border-radius: 10px;
 `;
+
+export const HeaderIncorporacao = styled.div`
+  width: 20%;
+  padding: 0.2rem;
+  border-radius: 10px;
+  @media (max-width: 700px) {
+    display: none;
+  }
+`;
+
 export const IMG = styled.div`
   width: 2.5rem;
   height: 2.5rem;
@@ -33,7 +43,7 @@ export const ListContainer = styled.div`
   width: 100%;
   height: 2.6rem;
   /* gap: 2rem; */
-  justify-content: space-around;
+  justify-content: space-between;
 
   button {
     border: 0;
@@ -52,13 +62,26 @@ export const DenominacaoDiv = styled.div`
   background-color: var(--gray-200);
   padding: 0.2rem;
   border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-export const DivContainer = styled.div`
+export const DivId = styled.div`
   width: 20%;
   background-color: var(--gray-200);
   padding: 0.2rem;
   border-radius: 6px;
+`;
+
+export const DivIncorporacao = styled.div`
+  width: 20%;
+  background-color: var(--gray-200);
+  padding: 0.2rem;
+  border-radius: 6px;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const SelectInput = styled.select`
@@ -118,5 +141,9 @@ export const WelcomeContainer = styled.div`
   img {
     width: 80%;
     margin: 0 auto;
+    @media (max-width: 1200px) {
+      width: 100%;
+      margin-top: 1rem;
+    }
   }
 `;

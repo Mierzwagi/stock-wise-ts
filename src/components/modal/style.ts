@@ -17,6 +17,11 @@ export const BoxStyled = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 1200px) {
+    width: 90%;
+    height: 60%;
+  }
+
   label {
     cursor: pointer;
     display: flex;
@@ -29,7 +34,11 @@ export const BoxStyled = styled.div`
   }
 `;
 
+export const ImgItem = styled.img`
+  width: 100%;
+  height: 90%;
 
-export const ButtonMenu = styled.div`
-  
-`
+  @media (max-width: 1200px) {
+    width: 78%;
+  }
+`;

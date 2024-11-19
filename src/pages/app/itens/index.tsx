@@ -58,7 +58,7 @@ export function Itens() {
   //useCaallback: hook que memoriza a função não deixando que ela seja replicada a cada renderização
   const fetchItens = useCallback(
     async (localizacao: string, page: number = 1) => {
-      const itemPerPage = window.innerHeight <= 800 ? 10 : (window.innerHeight < 1900 ? 15 : 30);
+      const itemPerPage = window.innerHeight <= 800 ? 10 : window.innerHeight<= 1000 ? 15 : window.innerHeight < 1900 ? 20 : 30 ;
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
         const response = await listItens(localizacao, page.toString(), itemPerPage); // Faz a requisição buscando a sala com a qnt de páginas
