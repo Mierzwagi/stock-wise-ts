@@ -16,17 +16,26 @@ export const HeaderId = styled.div`
   width: 20%;
   padding: 0.2rem;
   border-radius: 10px;
+  h1 {
+    font-size: 0.8rem;
+  }
 `;
 export const HeaderTitleDenominacao = styled.div`
   width: 50%;
   padding: 0.2rem;
   border-radius: 10px;
+  h1 {
+    font-size: 0.8rem;
+  }
 `;
 
 export const HeaderIncorporacao = styled.div`
   width: 20%;
   padding: 0.2rem;
   border-radius: 10px;
+  h1 {
+    font-size: 0.8rem;
+  }
   @media (max-width: 700px) {
     display: none;
   }
@@ -41,7 +50,7 @@ export const ListContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 2.6rem;
+  height: 2.4rem;
   /* gap: 2rem; */
   justify-content: space-between;
 
@@ -52,7 +61,7 @@ export const ListContainer = styled.div`
   }
 
   strong {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: bold;
   }
 `;

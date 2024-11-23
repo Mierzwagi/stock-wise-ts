@@ -21,11 +21,9 @@ export const SidebarContainer = styled.aside`
     text-align: center;
 
     @media (max-width: 700px) {
-    padding: 1rem;
+      padding: 1rem;
+    }
   }
-  }
-
-
 
   //Responsividade
   @media (max-width: 1200px) {
@@ -38,18 +36,13 @@ export const SidebarContainer = styled.aside`
   @media (max-width: 700px) {
     width: 44%;
   }
-
-
 `;
 
 export const IconsContainer = styled.div`
   width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  justify-items: center;
   gap: 1rem;
-
 `;
 
 interface ButtonLabel {

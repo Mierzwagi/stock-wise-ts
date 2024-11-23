@@ -24,6 +24,14 @@ export const HeaderContainer = styled.header`
   }
 `;
 
+export const HeaderInput = styled.input`
+  padding: 8px;
+  border: none;
+  width: 10%;
+  background-color: transparent;
+  border-bottom: solid 1px var(--purple-200);
+`;
+
 export const SelectInput = styled.select`
   padding: 0.5rem;
   border: 0;
@@ -60,7 +68,7 @@ export const IntensListContainer = styled.div`
   h3 {
     font-size: 1.2rem;
 
-    @media (max-width: 700px){
+    @media (max-width: 700px) {
       font-size: 0.8rem;
     }
   }
@@ -79,14 +87,13 @@ export const DenominacaoH4 = styled.h4`
 
 export const ListContainer = styled.div`
   width: 100%;
-  height: 80%;
+  height: 84%;
 `;
 
 export const PaginationContainer = styled.div`
   width: 100%;
-  height: 10%;
+  height: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
-
 `;

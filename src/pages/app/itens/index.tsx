@@ -4,6 +4,7 @@ import { FaPaperclip } from "react-icons/fa6";
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
   HeaderContainer,
+  HeaderInput,
   IntensListContainer,
   ItensContainer,
   ListContainer,
@@ -24,11 +25,8 @@ export function Itens() {
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
- 
-
- /*  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  }; */
+  const [searchTerm, setSearchTerm] = useState<string>(""); // Valor digitado no campo de busca
+  const [filteredItens, setFilteredItens] = useState<Item[]>([]); // Itens filtrados
 
   //Modal
   const handleOpen = () => setOpen(true);
@@ -37,7 +35,7 @@ export function Itens() {
   //Buscando as Salas
   const fetchSala = async () => {
     try {
-      const response = await listSalas(); 
+      const response = await listSalas();
       console.log("Salas:", response);
 
       if (Array.isArray(response)) {
@@ -58,15 +56,26 @@ export function Itens() {
   //useCaallback: hook que memoriza a função não deixando que ela seja replicada a cada renderização
   const fetchItens = useCallback(
     async (localizacao: string, page: number = 1) => {
-      const itemPerPage = window.innerHeight <= 800 ? 10 : window.innerHeight<= 1000 ? 15 : window.innerHeight < 1900 ? 20 : 30 ;
+      const itemPerPage =
+        window.innerHeight <= 800
+          ? 10
+          : window.innerHeight <= 1000
+          ? 15
+          : window.innerHeight < 1900
+          ? 20
+          : 30;
       console.log(`Buscando itens para sala ${localizacao}, página ${page}`);
       try {
-        const response = await listItens(localizacao, page.toString(), itemPerPage); // Faz a requisição buscando a sala com a qnt de páginas
+        const response = await listItens(
+          localizacao,
+          page.toString(),
+          itemPerPage
+        ); // Faz a requisição buscando a sala com a qnt de páginas
         if (response) {
           console.log("Itens recebidos da API:", response);
           setItens(response.data);
-          setTotalItems(response.totalItems); 
-          setTotalPages(response.totalPages); 
+          setTotalItems(response.totalItems);
+          setTotalPages(response.totalPages);
         } else {
           setItens([]); //limpa a lista
           setError("Não foi possível carregar os itens.");
@@ -89,10 +98,15 @@ export function Itens() {
     if (selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
       fetchItens(selectSala, currentPage); //Busca os itens de acordo com a sala e a página selecionada
+      
     } else {
       setItens([]);
     }
   }, [selectSala, currentPage, fetchItens]);
+
+  useEffect(() => {
+    setFilteredItens(itens);
+  }, [itens]);
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -110,6 +124,22 @@ export function Itens() {
     setCurrentPage(1); // Reseta a página atual ao mudar de sala
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+
+    if (term) {
+      const filtered = itens.filter(
+        (item) =>
+          item.nome.toLowerCase().includes(term) ||
+          String(item.externalId).includes(term)
+      );
+      setFilteredItens(filtered);
+    } else {
+      setFilteredItens(itens); // Mostra todos os itens se o campo de busca estiver vazio
+    }
+  };
+
   //Exibição do nome da sala
   const selectedSala = salas.find(
     (sala) => String(sala.localizacao) === selectSala
@@ -117,7 +147,6 @@ export function Itens() {
 
   return (
     <ItensContainer>
-  
       <HeaderContainer>
         <IntensListContainer>
           {selectedSala ? (
@@ -131,9 +160,15 @@ export function Itens() {
             <h1>{sala.quantidadeDeItens}</h1>
           ))}
         </div> */}
+        <HeaderInput
+          type="text"
+          placeholder="ID do Item"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
 
-        <SelectInput value={selectSala} onChange={handleSalaChange} >
-          <option value="" disabled >
+        <SelectInput value={selectSala} onChange={handleSalaChange}>
+          <option value="" disabled>
             Selecione uma Sala
           </option>
           {salas.map((sala) => (
@@ -143,8 +178,9 @@ export function Itens() {
           ))}
         </SelectInput>
       </HeaderContainer>
+
       <ListContainer>
-        <ListItens itens={itens} />
+        <ListItens itens={filteredItens.length > 0 ? filteredItens : itens} />
       </ListContainer>
       {selectSala && (
         <PaginationContainer>

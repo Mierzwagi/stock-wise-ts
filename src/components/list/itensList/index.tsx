@@ -35,6 +35,7 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
   const [open, setOpen] = useState(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const approved = window.innerWidth <= 1200;
+ 
 
   //Modal
   const handleOpen = (imgUrl: string) => {
@@ -45,6 +46,8 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     setOpen(false);
     setSelectedImageUrl(null);
   };
+
+
 
   if (!Array.isArray(itens) || itens.length === 0) {
     return (

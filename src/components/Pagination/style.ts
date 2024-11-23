@@ -45,8 +45,8 @@ export const PageButtonsStyles = styled.button<ButtonActiveStyle>`
     props.$active ? "var(--purple-200)" : "var(--gray-200)"};
   color: ${(props) => (props.$active ? "var(--white)" : "var(--black)")};
 
-  width: 2rem;
-  height: 2rem;
+  width: 1.6rem;
+  height: 1.6rem;
   margin: 0 8px;
   border-radius: 6px;
 

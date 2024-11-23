@@ -2,11 +2,11 @@ import { FaTrashCan } from "react-icons/fa6";
 import { User } from "../../../server/endpoints";
 
 import {
+  DenominacaoDiv,
   DivId,
-  DivIncorporacao,
   HeaderContainer,
   HeaderId,
-  HeaderIncorporacao,
+  HeaderTitleDenominacao,
   IMG,
   ItensContainer,
   ListContainer,
@@ -43,9 +43,9 @@ export const ListUser: React.FC<UserProps> = ({
         <HeaderId>
           <strong>Nome</strong>
         </HeaderId>
-        <HeaderIncorporacao>
+        <HeaderTitleDenominacao>
           <strong>E-MAIL</strong>
-        </HeaderIncorporacao>
+        </HeaderTitleDenominacao>
         <HeaderId>
           <strong>NÍVEL</strong>
         </HeaderId>
@@ -57,9 +57,9 @@ export const ListUser: React.FC<UserProps> = ({
           <DivId>
             <strong>{user.nome}</strong>
           </DivId>
-          <DivIncorporacao>
+          <DenominacaoDiv>
             <strong>{user.email}</strong>
-          </DivIncorporacao>
+          </DenominacaoDiv>
 
           <SelectInput
             value={user.role}

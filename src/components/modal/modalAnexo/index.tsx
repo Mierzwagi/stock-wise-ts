@@ -45,11 +45,12 @@ export function ModalUpload({ isOpen, handleClose }: ModalProps) {
       aria-describedby="modal-modal-description"
     >
       <BoxStyled>
+        <Typography sx={{ mt: 2, color: "gray" }}>
+          Arraste o arquivo ou clique aqui para Anexar
+        </Typography>
         <label htmlFor="file-upload">
-          <FaUpload size={60} color="#5907AF"/>
-          <Typography sx={{ mt: 2, color: "gray" }}>
-            Arraste o arquivo ou clique aqui para Anexar
-          </Typography>
+          <FaUpload size={60} color="#5907AF" />
+          
           <input
             id="file-upload"
             type="file"
@@ -65,7 +66,7 @@ export function ModalUpload({ isOpen, handleClose }: ModalProps) {
             Arquivo selecionado: {selectedFile.name}
           </Typography>
         )}
-        {selectedFile && (
+  
           <Button
             variant="contained"
             onClick={handleFileUpload}
@@ -74,7 +75,7 @@ export function ModalUpload({ isOpen, handleClose }: ModalProps) {
           >
             {uploading ? "Enviando..." : "Confirmar"}
           </Button>
-        )}
+        
       </BoxStyled>
     </Modal>
   );

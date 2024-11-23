@@ -27,8 +27,9 @@ export const BoxStyled = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
-    height: 60%;
+    width: 60%;
+    height: 40%;
+    margin: 2rem 0 2rem 0;
     justify-content: center;
     border: 1px solid black;
   }
