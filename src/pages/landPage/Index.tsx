@@ -1,7 +1,5 @@
 import {
   ButtonContainer,
-  DivAboutUs,
-  DivImgAbout,
   DivImgProblem,
   DivProblem,
   Header,
