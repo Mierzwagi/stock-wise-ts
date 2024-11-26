@@ -46,8 +46,6 @@ export const listSalas = async (): Promise<Sala[]> => {
 };
 
 
-
-
 //==== AUTH ====
 
 export interface SignUpBody {
@@ -79,7 +77,6 @@ export const signIn = async (email: string, senha: string) => {
 };
 
 
-
 //==== USER ====
 
 export interface User {
@@ -103,8 +100,6 @@ export const usersDelet = async (id: number): Promise<void> => {
   const response = await api.delete(`/users/${id}`);
   return response.data;
 };
-
-
 
 
 // ==== DOCS ====

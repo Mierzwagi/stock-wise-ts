@@ -15,14 +15,14 @@ export function Default() {
       setOpenSidebar(false);
     }
   };
-  
+
   return (
     <DefaultConatiner>
       {approved && (
         <ButtonSidebar onClick={() => setOpenSidebar(!openSidebar)}><FaBars size={20} color={openSidebar ? "#ffff" : "#5907AF"}/></ButtonSidebar>
       )}
       {(!approved || openSidebar) && <Sidebar onOptionSelect = {handleOptionSelect}/>}
-      <ContainerLayout>
+      <ContainerLayout isSidebarOpen={openSidebar} >
         <Outlet />
       </ContainerLayout>
     </DefaultConatiner>

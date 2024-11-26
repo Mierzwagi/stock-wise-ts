@@ -32,15 +32,15 @@ export function Sidebar({onOptionSelect}: SidebarProps) {
         <h1>Stock Wise</h1>
         <IconsContainer>
           <Button onClick={handleItens} >
-            <FaBoxOpen size={20} color="white" />
+            <FaBoxOpen  />
             <span>Itens</span>
           </Button>
           <Button onClick={handleReport} >
-            <FaFileInvoice size={20} color="white" />
+            <FaFileInvoice  />
             <span>Relatórios</span>
           </Button>
           <Button onClick={handleUser} >
-            <FaUserLarge size={20} color="white" />
+            <FaUserLarge />
             <span>Usuários</span>
           </Button>
         </IconsContainer>

@@ -16,7 +16,6 @@ import {
   DateInput,
 } from "./style";
 import { Pagination } from "../../../components/Pagination";
-
 export function Reports() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [selectSala, setSelectSala] = useState<string>("");
@@ -48,17 +47,13 @@ export function Reports() {
   };
 
   const fechReports = useCallback(
-    async (
-      localizacao: string,
-      page: number = 1,
-      dataCriacao?: string,
-    ) => {
+    async (localizacao: string, page: number = 1, dataCriacao?: string) => {
       setLoading(true);
       try {
         const response = await listReports(
           localizacao,
           page.toString(),
-          dataCriacao,
+          dataCriacao
         );
         console.log("Relatórios:", response);
         if (response) {
@@ -84,12 +79,11 @@ export function Reports() {
       const response = await allReports(); //Requisição para API
       console.log("Relatórios:", response);
       if (response) {
-        setReport(response.data); 
+        setReport(response.data);
       } else {
-        setReport([]); 
+        setReport([]);
         setError("Não foi possível carregar os usuários.");
       }
-      
     } catch (error) {
       const typedError = error as Error;
       setError(typedError.message);
@@ -108,7 +102,6 @@ export function Reports() {
       console.log("Sala selecionada mudou:", selectSala);
       fetchAllReports();
     } else {
-      
       fechReports(selectSala, currentPage, selectDateFirst); //Busca os itens de acordo com a sala e a página selecionada
     }
   }, [selectSala, currentPage, fechReports, selectDateFirst]);
@@ -152,6 +145,15 @@ export function Reports() {
             value={selectDateFirst}
             onChange={handleDateFirst}
           />
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Selecione uma data"
+              value={selectDateFirst}
+              onChange={(newValue) =>
+                setSelectDateFirst(newValue?.toString() || "")
+              }
+            />
+          </LocalizationProvider> */}
         </div>
       </HeaderContainer>
       <ListContainer>

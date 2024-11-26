@@ -10,6 +10,8 @@ export const DefaultConatiner = styled.main`
 
   @media (max-width: 1200px) {
     align-items: start;
+    margin: 0;
+    height: calc(100vh);
   }
 `;
 

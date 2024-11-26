@@ -34,7 +34,9 @@ export const SidebarContainer = styled.aside`
   }
 
   @media (max-width: 700px) {
-    width: 44%;
+    width: 63%;
+    height: 100%;
+    border-radius: 0 5px 5px 0;
   }
 `;
 
@@ -67,6 +69,9 @@ export const Button = styled.button<ButtonLabel>`
 
   &:hover {
     background-color: #9d4edd;
+  }
+
+  svg {
   }
 
   @media (max-width: 1200px) {

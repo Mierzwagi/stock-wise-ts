@@ -18,7 +18,7 @@ import { ModalUpload } from "../../../components/modal/modalAnexo";
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [itens, setItens] = useState<Item[]>([]);
-  const [, setTotalItems] = useState<number>(0);
+  const [totalItens, setTotalItems] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [selectSala, setSelectSala] = useState<string>("");
   const [loading, setLoading] = useState(true);
@@ -98,7 +98,6 @@ export function Itens() {
     if (selectSala) {
       console.log("Sala selecionada mudou:", selectSala);
       fetchItens(selectSala, currentPage); //Busca os itens de acordo com a sala e a página selecionada
-      
     } else {
       setItens([]);
     }
@@ -154,18 +153,15 @@ export function Itens() {
           ) : (
             <h3>Seja Bem-Vindo</h3>
           )}
+          {selectSala && (
+            <HeaderInput
+              type="text"
+              placeholder="ID do Item"
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          )}
         </IntensListContainer>
-        {/* <div>
-          {salas.map((sala) => (
-            <h1>{sala.quantidadeDeItens}</h1>
-          ))}
-        </div> */}
-        <HeaderInput
-          type="text"
-          placeholder="ID do Item"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
 
         <SelectInput value={selectSala} onChange={handleSalaChange}>
           <option value="" disabled>
@@ -182,8 +178,10 @@ export function Itens() {
       <ListContainer>
         <ListItens itens={filteredItens.length > 0 ? filteredItens : itens} />
       </ListContainer>
+
       {selectSala && (
         <PaginationContainer>
+          <div>{selectSala && <h6>Itens: {totalItens}</h6>}</div>
           <Pagination
             currentPage={currentPage}
             onPageChange={setCurrentPage}

@@ -15,7 +15,7 @@ import {
   ListContainer,
   WelcomeContainer,
 } from "../style/style";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ModalImage } from "../../modal/modalImg";
 
 //Recebendo a lista de Itens por Props
@@ -35,7 +35,12 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
   const [open, setOpen] = useState(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const approved = window.innerWidth <= 1200;
- 
+
+  const orderItens = useMemo(() => {
+    return [...itens].sort((a, b) => {
+      return a.externalId - b.externalId;
+    });
+  }, [itens]);
 
   //Modal
   const handleOpen = (imgUrl: string) => {
@@ -46,8 +51,6 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     setOpen(false);
     setSelectedImageUrl(null);
   };
-
-
 
   if (!Array.isArray(itens) || itens.length === 0) {
     return (
@@ -75,7 +78,7 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
         <IMG></IMG>
       </HeaderContainer>
 
-      {itens.map((item) => (
+      {orderItens.map((item) => (
         <ListContainer key={item.externalId}>
           <DivId>
             <strong>{item.externalId}</strong>
@@ -87,7 +90,7 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
             <strong>{formatDate(item.dataDeIncorporacao)}</strong>
           </DivIncorporacao>
           <button onClick={() => handleOpen(item.url)}>
-            <FaImages size={30} color="#5907AF" />
+            <FaImages size={25} color="#5907AF" />
           </button>
         </ListContainer>
       ))}
@@ -99,3 +102,5 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     </ItensContainer>
   );
 };
+
+

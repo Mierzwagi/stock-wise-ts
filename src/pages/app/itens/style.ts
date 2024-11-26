@@ -27,9 +27,12 @@ export const HeaderContainer = styled.header`
 export const HeaderInput = styled.input`
   padding: 8px;
   border: none;
-  width: 10%;
+  width: 12%;
   background-color: transparent;
   border-bottom: solid 1px var(--purple-200);
+  @media (max-width: 700px) {
+    width: 24%;
+  }
 `;
 
 export const SelectInput = styled.select`
@@ -65,12 +68,25 @@ export const SelectInput = styled.select`
 `;
 
 export const IntensListContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10rem;
+  width: 100%;
+
   h3 {
     font-size: 1.2rem;
 
     @media (max-width: 700px) {
       font-size: 0.8rem;
     }
+  }
+
+  @media (max-width: 700px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
 `;
 
@@ -88,6 +104,9 @@ export const DenominacaoH4 = styled.h4`
 export const ListContainer = styled.div`
   width: 100%;
   height: 84%;
+  @media (max-width: 700px) {
+    margin-top: 2rem;
+  }
 `;
 
 export const PaginationContainer = styled.div`
@@ -95,5 +114,9 @@ export const PaginationContainer = styled.div`
   height: 5%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+
+  div{
+    width: 3rem;
+  }
 `;
