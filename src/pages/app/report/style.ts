@@ -12,7 +12,6 @@ export const UsersContainer = styled.div`
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-
     font-size: 2rem;
   }
 `;
@@ -23,18 +22,21 @@ export const HeaderContainer = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 2rem;
 
   @media (max-width: 700px) {
     flex-direction: column;
   }
-
-  div {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+ 
 `;
+
+export const ContainerInput = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`
+
 
 export const SelectInput = styled.select`
   border: 0;

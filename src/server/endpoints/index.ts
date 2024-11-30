@@ -1,6 +1,5 @@
 import api from "../api/api";
 
-
 // ==== ITENS / SALAS ====
 export interface Item {
   externalId: number;
@@ -20,10 +19,13 @@ export interface Pageable<T> {
 export const listItens = async (
   localizacao?: string,
   page: string = "1",
-  itemsPerPage: number = 20
+  itemsPerPage: number = 20,
+  nome: string = ""
 ): Promise<Pageable<Item>> => {
   console.log(`/salas/${localizacao}/itens?page=${page}`);
-  const response = await api.get(`/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}`);
+  const response = await api.get(
+    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}`
+  );
   return {
     data: response.data.data, // Itens
     totalItems: response.data.totalItems, // Total de itens
@@ -31,6 +33,16 @@ export const listItens = async (
     currentPage: response.data.currentPage, // Página atual
   };
 };
+
+export const searchItens = async (
+  localizacao: number,
+  nome: string
+): Promise<Item> => {
+  const response = await api.get(`/sala//itens?`);
+  return response.data;
+};
+
+// ==== SALAS ====
 
 export interface Sala {
   id: number;
@@ -44,7 +56,6 @@ export const listSalas = async (): Promise<Sala[]> => {
   const response = await api.get(`/salas`);
   return response.data;
 };
-
 
 //==== AUTH ====
 
@@ -76,7 +87,6 @@ export const signIn = async (email: string, senha: string) => {
   return response.data;
 };
 
-
 //==== USER ====
 
 export interface User {
@@ -91,8 +101,11 @@ export const usersRequest = async (page: string): Promise<Pageable<User>> => {
   return response.data;
 };
 
-export const usersRoleUpdate = async (id: number, newRole: string): Promise<void> => {
-  const response = await api.patch(`/users/${id}`, {role: newRole});
+export const usersRoleUpdate = async (
+  id: number,
+  newRole: string
+): Promise<void> => {
+  const response = await api.patch(`/users/${id}`, { role: newRole });
   return response.data;
 };
 
@@ -101,21 +114,19 @@ export const usersDelet = async (id: number): Promise<void> => {
   return response.data;
 };
 
-
 // ==== DOCS ====
 export const uploadFile = async (file: File): Promise<void> => {
   //Permite mandar um arquivo através de um arequisição
   const formData = new FormData();
-  formData.append('file', file)
+  formData.append("file", file);
 
   try {
     const response = await api.post(`/seed/createItens`, formData, {
-      headers:{
+      headers: {
         "Content-Type": "multipart/form-data",
-      }
+      },
     });
-    console.log('Arquivo anexado com sucesso', response.data);
-    
+    console.log("Arquivo anexado com sucesso", response.data);
   } catch (error) {
     console.error("Erro ao anexzar o arquivo", error);
     throw error;
@@ -131,17 +142,24 @@ export interface Report {
   dataCriacao: string;
 }
 
-export const listReports = async (localizacao?: string, page: string = "1", dataCriacao?:string): Promise<Pageable<Report>> => {
-  console.log(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`);
-  const response = await api.get(`/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`);
+export const listReports = async (
+  localizacao?: string,
+  page: string = "1",
+  dataCriacao?: string
+): Promise<Pageable<Report>> => {
+  console.log(
+    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
+  );
+  const response = await api.get(
+    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
+  );
   return {
     data: response.data.data,
-    totalItems: response.data.totalItems, 
+    totalItems: response.data.totalItems,
     totalPages: response.data.totalPages,
-    currentPage: response.data.currentPage, 
+    currentPage: response.data.currentPage,
   };
 };
-
 
 export const allReports = async (): Promise<Pageable<Report>> => {
   const response = await api.get(`/relatorios`);

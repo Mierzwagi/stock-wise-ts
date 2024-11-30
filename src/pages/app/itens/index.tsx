@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListItens } from "../../../components/list/itensList";
 import { FaPaperclip } from "react-icons/fa6";
-import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
+import {
+  Item,
+  listItens,
+  listSalas,
+  Sala,
+  searchItens,
+} from "../../../server/endpoints";
 import {
   HeaderContainer,
   HeaderInput,
@@ -25,8 +31,6 @@ export function Itens() {
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchTerm, setSearchTerm] = useState<string>(""); // Valor digitado no campo de busca
-  const [filteredItens, setFilteredItens] = useState<Item[]>([]); // Itens filtrados
 
   //Modal
   const handleOpen = () => setOpen(true);
@@ -81,8 +85,12 @@ export function Itens() {
           setError("Não foi possível carregar os itens.");
         }
       } catch (error) {
-        const typedError = error as Error;
-        setError(typedError.message);
+        const typedError = error as any;
+        console.error(
+          "Erro ao buscar itens:",
+          typedError.response?.data || typedError.message
+        );
+        setError(typedError.response?.data?.message || "Erro inesperado");
       } finally {
         setLoading(false);
       }
@@ -103,10 +111,6 @@ export function Itens() {
     }
   }, [selectSala, currentPage, fetchItens]);
 
-  useEffect(() => {
-    setFilteredItens(itens);
-  }, [itens]);
-
   if (loading) {
     return <p>Carregando...</p>;
   }
@@ -122,20 +126,31 @@ export function Itens() {
     setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
     setCurrentPage(1); // Reseta a página atual ao mudar de sala
   };
+  
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nome = e.target.value;
 
-    if (term) {
-      const filtered = itens.filter(
-        (item) =>
-          item.nome.toLowerCase().includes(term) ||
-          String(item.externalId).includes(term)
-      );
-      setFilteredItens(filtered);
-    } else {
-      setFilteredItens(itens); // Mostra todos os itens se o campo de busca estiver vazio
+    if (!nome) {
+      fetchItens(selectSala, currentPage);
+      return;
+    }
+
+    try {
+      const response = await listItens(selectSala, "1", 10, nome);
+
+      console.log("RESPONSE ########################");
+      console.log(response);
+
+      // if (response.salaId === selectSala) {
+      setItens(response.data); // Atualiza para exibir apenas o item buscado.
+      // } else {
+      // setItens([]); // Caso o item não pertença à sala selecionada.
+      // setError("Item não encontrado nesta sala.");
+      // }
+    } catch (error) {
+      console.error("Erro ao buscar item pelo nome:", error);
+      setError("Item não encontrado.");
     }
   };
 
@@ -156,8 +171,7 @@ export function Itens() {
           {selectSala && (
             <HeaderInput
               type="text"
-              placeholder="ID do Item"
-              value={searchTerm}
+              placeholder="Nome do Item"
               onChange={handleSearch}
             />
           )}
@@ -176,7 +190,7 @@ export function Itens() {
       </HeaderContainer>
 
       <ListContainer>
-        <ListItens itens={filteredItens.length > 0 ? filteredItens : itens} />
+        <ListItens itens={itens} />
       </ListContainer>
 
       {selectSala && (

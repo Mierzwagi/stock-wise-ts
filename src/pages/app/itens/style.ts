@@ -116,7 +116,5 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  div{
-    width: 3rem;
-  }
+ 
 `;

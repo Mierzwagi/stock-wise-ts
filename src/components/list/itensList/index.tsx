@@ -42,6 +42,8 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     });
   }, [itens]);
 
+  console.log(orderItens.map((item) => item.externalId));
+
   //Modal
   const handleOpen = (imgUrl: string) => {
     setSelectedImageUrl(imgUrl);
@@ -79,7 +81,7 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
       </HeaderContainer>
 
       {orderItens.map((item) => (
-        <ListContainer key={item.externalId}>
+        <ListContainer key={`${item.externalId}-${item.nome}`}>
           <DivId>
             <strong>{item.externalId}</strong>
           </DivId>
@@ -102,5 +104,3 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     </ItensContainer>
   );
 };
-
-

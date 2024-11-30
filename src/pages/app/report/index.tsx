@@ -13,13 +13,18 @@ import {
   ListContainer,
   PaginationContainer,
   UsersContainer,
-  DateInput,
+  ContainerInput,
 } from "./style";
 import { Pagination } from "../../../components/Pagination";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "./style.css";
+
 export function Reports() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [selectSala, setSelectSala] = useState<string>("");
-  const [selectDateFirst, setSelectDateFirst] = useState<string>("");
+  const [selectDateFirst] = useState<string>("");
+  const [selectDate, setSelectDate] = useState<Date | null>(null);
   const [report, setReport] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -120,41 +125,34 @@ export function Reports() {
     setCurrentPage(1);
   };
 
-  const handleDateFirst = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectDateFirst(e.target.value);
+  const handleDateChange = (date: Date | null) => {
+    setSelectDate(date);
   };
 
   return (
     <UsersContainer>
-      <h1>Relatórios</h1>
       <HeaderContainer>
-        <SelectInput value={selectSala} onChange={handleSalaChange}>
-          <option value="" disabled selected>
-            Selecione uma Sala
-          </option>
-          {salas.map((sala) => (
-            <option key={sala.localizacao} value={sala.localizacao}>
-              {sala.nome}
+        <h1>Relatórios</h1>
+        <ContainerInput>
+          <SelectInput value={selectSala} onChange={handleSalaChange}>
+            <option value="" disabled selected>
+              Selecione uma Sala
             </option>
-          ))}
-        </SelectInput>
-        <div>
-          <label htmlFor="">MÊS:</label>
-          <DateInput
-            type="month"
-            value={selectDateFirst}
-            onChange={handleDateFirst}
+            {salas.map((sala) => (
+              <option key={sala.localizacao} value={sala.localizacao}>
+                {sala.nome}
+              </option>
+            ))}
+          </SelectInput>
+          <DatePicker
+            className="custom-datepicker"
+            placeholderText="Selecione uma data"
+            selected={selectDate}
+            onChange={handleDateChange}
+            dateFormat="MM/YYYY"
+            showMonthYearPicker
           />
-          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Selecione uma data"
-              value={selectDateFirst}
-              onChange={(newValue) =>
-                setSelectDateFirst(newValue?.toString() || "")
-              }
-            />
-          </LocalizationProvider> */}
-        </div>
+        </ContainerInput>
       </HeaderContainer>
       <ListContainer>
         <ListReports reports={report} />
