@@ -27,6 +27,7 @@ export const HeaderContainer = styled.div`
 
   @media (max-width: 700px) {
     flex-direction: column;
+    gap: 1rem;
   }
  
 `;
@@ -35,6 +36,7 @@ export const ContainerInput = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  
 `
 
 

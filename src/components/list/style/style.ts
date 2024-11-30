@@ -81,6 +81,9 @@ export const DivId = styled.div`
   background-color: var(--gray-200);
   padding: 0.2rem;
   border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const DivIncorporacao = styled.div`

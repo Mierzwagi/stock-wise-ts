@@ -21,6 +21,7 @@ export const HeaderContainer = styled.header`
 
   @media (max-width: 700px) {
     flex-direction: column;
+    gap: 0.5rem;
   }
 `;
 
@@ -87,6 +88,7 @@ export const IntensListContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    flex-direction: column;
   }
 `;
 
@@ -105,7 +107,7 @@ export const ListContainer = styled.div`
   width: 100%;
   height: 84%;
   @media (max-width: 700px) {
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
 `;
 
