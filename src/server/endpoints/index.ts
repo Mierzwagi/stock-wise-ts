@@ -34,14 +34,6 @@ export const listItens = async (
   };
 };
 
-export const searchItens = async (
-  localizacao: number,
-  nome: string
-): Promise<Item> => {
-  const response = await api.get(`/sala//itens?`);
-  return response.data;
-};
-
 // ==== SALAS ====
 
 export interface Sala {

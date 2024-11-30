@@ -1,13 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { ListItens } from "../../../components/list/itensList";
 import { FaPaperclip } from "react-icons/fa6";
-import {
-  Item,
-  listItens,
-  listSalas,
-  Sala,
-  searchItens,
-} from "../../../server/endpoints";
+import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 import {
   HeaderContainer,
   HeaderInput,
@@ -84,13 +78,8 @@ export function Itens() {
           setItens([]); //limpa a lista
           setError("Não foi possível carregar os itens.");
         }
-      } catch (error) {
-        const typedError = error as any;
-        console.error(
-          "Erro ao buscar itens:",
-          typedError.response?.data || typedError.message
-        );
-        setError(typedError.response?.data?.message || "Erro inesperado");
+      } catch (error: unknown) {
+        console.error("Erro ao buscar itens:", error);
       } finally {
         setLoading(false);
       }
@@ -126,7 +115,6 @@ export function Itens() {
     setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
     setCurrentPage(1); // Reseta a página atual ao mudar de sala
   };
-  
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const nome = e.target.value;
