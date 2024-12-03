@@ -7,16 +7,13 @@ export const SidebarContainer = styled.aside`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-image: var(--gradient);
   border-radius: 0 20px 0 20px;
 
   h1 {
-    padding: 3rem;
     color: white;
-    position: absolute;
     font-weight: 400;
-    top: 0rem;
     font-size: 2rem;
     text-align: center;
 

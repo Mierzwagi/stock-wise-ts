@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { ListItens } from "../../../components/list/itensList";
 import { FaPaperclip } from "react-icons/fa6";
+
+import { ListItens } from "../../../components/list/itensList";
+import { Pagination } from "../../../components/Pagination";
+import { ButtonRound } from "../../../components/button";
+import { ModalUpload } from "../../../components/modal/modalAnexo";
+
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
+
 import {
   HeaderContainer,
   HeaderInput,
@@ -11,9 +17,6 @@ import {
   PaginationContainer,
   SelectInput,
 } from "./style";
-import { Pagination } from "../../../components/Pagination";
-import { ButtonRound } from "../../../components/button";
-import { ModalUpload } from "../../../components/modal/modalAnexo";
 
 export function Itens() {
   const [salas, setSalas] = useState<Sala[]>([]);
@@ -29,6 +32,7 @@ export function Itens() {
   //Modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  
 
   //Buscando as Salas
   const fetchSala = async () => {

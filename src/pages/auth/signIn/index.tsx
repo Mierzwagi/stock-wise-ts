@@ -34,6 +34,10 @@ export function SignIn() {
     try {
       const response = await signIn(signup.email, signup.senha);
       console.log("Resposta do servidor:", response);
+
+      localStorage.setItem("authToken", response.token);
+      localStorage.setItem("authUser", response.user.role);
+
       navigate("/");
     } catch (error) {
       const typedError = error as Error;

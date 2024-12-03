@@ -20,12 +20,25 @@ export const listItens = async (
   localizacao?: string,
   page: string = "1",
   itemsPerPage: number = 20,
-  nome: string = ""
+  nome: string = "",
+  id: string = "",
 ): Promise<Pageable<Item>> => {
   console.log(`/salas/${localizacao}/itens?page=${page}`);
+
+  const token = localStorage.getItem("authToken");
+  
   const response = await api.get(
-    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}`
+    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}&itemId=${id}`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    }
   );
+  
+ /*  const response = await api.get(
+    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}`
+  ); */
   return {
     data: response.data.data, // Itens
     totalItems: response.data.totalItems, // Total de itens
@@ -45,8 +58,21 @@ export interface Sala {
 }
 
 export const listSalas = async (): Promise<Sala[]> => {
-  const response = await api.get(`/salas`);
+  const token = localStorage.getItem("authToken"); 
+
+  const response = await api.get(
+    `/salas`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ""
+      },
+    }
+  );
+
+  /* const response = await api.get(`/salas`); */
   return response.data;
+
+  
 };
 
 //==== AUTH ====
@@ -76,7 +102,10 @@ export async function signUp({ nome, email, senha }: SignUpBody) {
 export const signIn = async (email: string, senha: string) => {
   /* pq ce colocou a rota de login com get wuaaaa */
   const response = await api.post(`/auth/login`, { email, senha });
+  
   return response.data;
+
+
 };
 
 //==== USER ====
@@ -89,7 +118,19 @@ export interface User {
 }
 
 export const usersRequest = async (page: string): Promise<Pageable<User>> => {
-  const response = await api.get(`/users?page=${page}`);
+
+  const token = localStorage.getItem("authToken"); 
+
+  const response = await api.get(
+    `/users?page=${page}`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ""
+      },
+    }
+  );
+
+  //const response = await api.get(`/users?page=${page}`);
   return response.data;
 };
 
@@ -97,12 +138,38 @@ export const usersRoleUpdate = async (
   id: number,
   newRole: string
 ): Promise<void> => {
-  const response = await api.patch(`/users/${id}`, { role: newRole });
+  
+  const token = localStorage.getItem("authToken");
+
+  const response = await api.patch(
+    `/users/${id}`,
+    { role: newRole },
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    }
+  );
+
+  //const response = await api.patch(`/users/${id}`, { role: newRole });
   return response.data;
 };
 
 export const usersDelet = async (id: number): Promise<void> => {
-  const response = await api.delete(`/users/${id}`);
+
+  const token = localStorage.getItem("authToken"); 
+
+  const response = await api.get(
+    `/users/${id}`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ""
+      },
+    }
+  );
+
+  //const response = await api.delete(`/users/${id}`);
+
   return response.data;
 };
 
@@ -111,11 +178,14 @@ export const uploadFile = async (file: File): Promise<void> => {
   //Permite mandar um arquivo através de um arequisição
   const formData = new FormData();
   formData.append("file", file);
+  const token = localStorage.getItem("authToken");
 
   try {
+    
     const response = await api.post(`/seed/createItens`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
     console.log("Arquivo anexado com sucesso", response.data);
@@ -142,9 +212,20 @@ export const listReports = async (
   console.log(
     `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
   );
+
+  const token = localStorage.getItem("authToken"); 
+
   const response = await api.get(
-    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
+    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ""
+      },
+    }
   );
+  /* const response = await api.get(
+    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
+  ); */
   return {
     data: response.data.data,
     totalItems: response.data.totalItems,
@@ -154,6 +235,19 @@ export const listReports = async (
 };
 
 export const allReports = async (): Promise<Pageable<Report>> => {
-  const response = await api.get(`/relatorios`);
+
+  const token = localStorage.getItem("authToken"); 
+
+  const response = await api.get(
+    `/relatorios`,
+    {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : ""
+      },
+    }
+  );
+
+  //const response = await api.get(`/relatorios`);
+
   return response.data;
 };
