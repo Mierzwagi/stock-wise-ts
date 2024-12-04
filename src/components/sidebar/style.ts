@@ -75,3 +75,15 @@ export const Button = styled.button<ButtonLabel>`
     width: 78%;
   }
 `;
+
+export const ButtonLogout = styled.button`
+background-color: transparent;
+border: none;
+color: var(--white);
+
+&:hover {
+    color: var(--purple-200);
+  }
+
+
+`

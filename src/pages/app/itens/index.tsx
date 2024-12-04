@@ -32,7 +32,6 @@ export function Itens() {
   //Modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
 
   //Buscando as Salas
   const fetchSala = async () => {
@@ -121,25 +120,29 @@ export function Itens() {
   };
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nome = e.target.value;
+    const query = e.target.value;
 
-    if (!nome) {
+    if (!query) {
       fetchItens(selectSala, currentPage);
       return;
     }
 
+    const isIdSearch = !isNaN(Number(query));
+
     try {
-      const response = await listItens(selectSala, "1", 10, nome);
+      const response = await listItens(
+        selectSala,
+        "1",
+        10,
+        isIdSearch ? "" : query,
+        isIdSearch ? query : ""
+      );
 
       console.log("RESPONSE ########################");
       console.log(response);
 
       // if (response.salaId === selectSala) {
       setItens(response.data); // Atualiza para exibir apenas o item buscado.
-      // } else {
-      // setItens([]); // Caso o item não pertença à sala selecionada.
-      // setError("Item não encontrado nesta sala.");
-      // }
     } catch (error) {
       console.error("Erro ao buscar item pelo nome:", error);
       setError("Item não encontrado.");
@@ -150,6 +153,8 @@ export function Itens() {
   const selectedSala = salas.find(
     (sala) => String(sala.localizacao) === selectSala
   );
+
+  const userRole = localStorage.getItem("authUser");
 
   return (
     <ItensContainer>
@@ -198,7 +203,8 @@ export function Itens() {
           </ButtonRound>
         </PaginationContainer>
       )}
-      <ModalUpload isOpen={open} handleClose={handleClose} />
+      {userRole ===
+        "ADMIN" && (<ModalUpload isOpen={open} handleClose={handleClose} />)}
     </ItensContainer>
   );
 }

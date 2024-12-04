@@ -25,7 +25,7 @@ export function SignUp() {
 
   const handleToggle = () => {
     setIsOn((prev) => !prev);
-    navigate("/signin");
+    navigate("/");
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

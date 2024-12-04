@@ -26,9 +26,11 @@ export const listItens = async (
   console.log(`/salas/${localizacao}/itens?page=${page}`);
 
   const token = localStorage.getItem("authToken");
+
+  const searchParam = id ? `itemId=${id}` : `search=${nome}`;
   
   const response = await api.get(
-    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}&itemId=${id}`,
+    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&${searchParam}&`,
     {
       headers: {
         Authorization: token ? `Bearer ${token}` : "",

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button, IconsContainer, SidebarContainer } from "./style";
+import { Button, ButtonLogout, IconsContainer, SidebarContainer } from "./style";
 import { FaUserLarge, FaFileInvoice, FaBoxOpen } from "react-icons/fa6";
 import { useEffect } from "react";
 
@@ -16,7 +16,7 @@ export function Sidebar({ onOptionSelect }: SidebarProps) {
 
   const handleItens = () => {
     onOptionSelect?.();
-    navigate("/");
+    navigate("/itens");
   };
 
   const handleReport = () => {
@@ -27,6 +27,11 @@ export function Sidebar({ onOptionSelect }: SidebarProps) {
   const handleUser = () => {
     onOptionSelect?.();
     navigate("/users");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authUser"); // Limpa o armazenamento local
+    navigate("/"); // Redireciona para a página de login
   };
 
   useEffect(() => {
@@ -55,9 +60,7 @@ export function Sidebar({ onOptionSelect }: SidebarProps) {
             </Button>
           )}
         </IconsContainer>
-        <h4>
-          <a href="">Test</a>
-        </h4>
+        <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
       </SidebarContainer>
     </>
   );

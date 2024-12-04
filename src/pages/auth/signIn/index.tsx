@@ -38,7 +38,7 @@ export function SignIn() {
       localStorage.setItem("authToken", response.token);
       localStorage.setItem("authUser", response.user.role);
 
-      navigate("/");
+      navigate("/itens");
     } catch (error) {
       const typedError = error as Error;
       setError(typedError.message);
