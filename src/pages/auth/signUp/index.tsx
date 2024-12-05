@@ -35,7 +35,7 @@ export function SignUp() {
     try {
       const response = await signUp(userData);
       console.log("Resposta do servidor:", response);
-      navigate("/signin");
+      navigate("/");
     } catch (error) {
       const typedError = error as Error;
       setError(typedError.message);

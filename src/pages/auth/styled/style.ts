@@ -7,6 +7,10 @@ export const SignInContainer = styled.div`
   @media (max-width: 1200px) {
     margin-top: 4rem;
   }
+
+   @media (max-width: 768px) {
+    margin-top: 6rem;
+  }
 `;
 export const SignInTitle = styled.div`
   display: flex;

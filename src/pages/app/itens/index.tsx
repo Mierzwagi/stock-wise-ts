@@ -168,7 +168,7 @@ export function Itens() {
           {selectSala && (
             <HeaderInput
               type="text"
-              placeholder="Nome do Item"
+              placeholder="Item"
               onChange={handleSearch}
             />
           )}

@@ -8,14 +8,13 @@ import {
   SignContainer,
 } from "./style";
 import BackImage from "../../../assets/images/img-background-container.svg";
-import BackImageMobile from "../../../assets/images/img-sign-mobile.svg";
+
 import { Outlet } from "react-router-dom";
 //import test1  from '../../../assets/images/test1.svg'
 //import test2 from '../../../assets/images/test2.svg'
 
 export default function Auth() {
 
-  const approved = window.innerWidth <= 768;
 
   return (
     <SignContainer>
@@ -28,7 +27,7 @@ export default function Auth() {
           <h1>STOCK WISE</h1>
           <Outlet />
         </AuthContent>
-        <img src={approved ? BackImageMobile : BackImage} alt="" />
+        <img src={BackImage} alt="" />
       </AuthContainer>
     </SignContainer>
   );
