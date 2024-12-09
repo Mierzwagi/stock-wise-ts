@@ -57,9 +57,9 @@ export function SignIn() {
   return (
     <SignInContainer>
       <SignInTitle>
-        <h2>Sign In</h2>
+        <h2>Login</h2>
         <SwitchContainer>
-          <strong>Sign Up</strong>
+          <p>Cadastrar</p>
           <ToggleButton isOn={isOn} handle={handleToggle} />
         </SwitchContainer>
       </SignInTitle>
@@ -82,7 +82,7 @@ export function SignIn() {
           onChange={handleChange}
           required
         />
-        {/* <a>Esqueceu a senha?</a> */}
+        <a>Esqueceu a senha?</a>
 
         <button type="submit" disabled={loading}>
           {loading ? "Entrando..." : "Entrar"}

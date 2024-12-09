@@ -14,6 +14,12 @@ export const UsersContainer = styled.div`
     color: transparent;
     font-size: 2rem;
   }
+
+  @media (max-width: 768px) {
+    gap: 3rem;
+  }
+
+
 `;
 
 export const HeaderContainer = styled.div`
@@ -36,9 +42,7 @@ export const ContainerInput = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  
 `
-
 
 export const SelectInput = styled.select`
   border: 0;

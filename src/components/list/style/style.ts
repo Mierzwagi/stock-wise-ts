@@ -64,6 +64,10 @@ export const ListContainer = styled.div`
     font-size: 0.7rem;
     font-weight: bold;
   }
+
+  @media (max-width: 768px) {
+      gap: 1rem;
+    }
 `;
 
 export const DenominacaoDiv = styled.div`

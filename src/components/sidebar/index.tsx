@@ -45,7 +45,7 @@ export function Sidebar({ onOptionSelect }: SidebarProps) {
         <IconsContainer>
           <Button onClick={handleItens}>
             <FaBoxOpen />
-            <span>Itens</span>
+            <span></span>Itens
           </Button>
           {userRole === "ADMIN" && (
             <Button onClick={handleReport}>

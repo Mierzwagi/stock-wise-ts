@@ -24,8 +24,8 @@ export const SidebarContainer = styled.aside`
 
   //Responsividade
   @media (max-width: 1200px) {
-    height: 50%;
-    width: 20%;
+    height: 100%;
+    width: 44%;
     position: absolute;
     border-radius: 20px 20px 20px 20px;
   }
@@ -48,9 +48,11 @@ interface ButtonLabel {
   $variant?: boolean;
 }
 export const Button = styled.button<ButtonLabel>`
+  width: 90%;
   display: flex;
   align-items: center;
   gap: 10px;
+
   background: none;
   border: none;
   cursor: pointer;
@@ -59,10 +61,12 @@ export const Button = styled.button<ButtonLabel>`
   border: none;
   background-color: transparent;
   cursor: pointer;
-  width: 90%;
+  border-radius: 5px;
 
   align-items: center;
   padding: 1rem;
+
+  transition: 0.2s ease;
 
   &:hover {
     background-color: #9d4edd;
@@ -77,13 +81,11 @@ export const Button = styled.button<ButtonLabel>`
 `;
 
 export const ButtonLogout = styled.button`
-background-color: transparent;
-border: none;
-color: var(--white);
+  background-color: transparent;
+  border: none;
+  color: var(--white);
 
-&:hover {
+  &:hover {
     color: var(--purple-200);
   }
-
-
-`
+`;

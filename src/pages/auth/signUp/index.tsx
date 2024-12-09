@@ -53,9 +53,9 @@ export function SignUp() {
   return (
     <SignInContainer>
       <SignInTitle>
-        <h2>Sign Up</h2>
+        <h2>Crie sua Conta</h2>
         <SwitchContainer>
-          <strong>Sign In</strong>
+          <p>Login</p>
           <ToggleButton isOn={isOn} handle={handleToggle} />
         </SwitchContainer>
       </SignInTitle>

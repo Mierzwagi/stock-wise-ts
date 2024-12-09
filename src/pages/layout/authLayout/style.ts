@@ -54,7 +54,11 @@ export const AuthContainer = styled.div`
     }
 
     @media (max-width: 768px) {
-      width: 100%;
+      width: 74%;
+    }
+
+    @media (max-width: 390px) {
+      width: 62%;
     }
   }
 
@@ -67,6 +71,8 @@ export const AuthContainer = styled.div`
     height: 100%;
     border-radius: 0;
   }
+
+  
 `;
 
 export const AuthContent = styled.div`
@@ -91,7 +97,10 @@ export const AuthContent = styled.div`
     @media (max-width: 768px) {
       text-align: center;
       font-size: 3rem;
+      margin-bottom: 20rem;
     }
+
+    
   }
 `;
 

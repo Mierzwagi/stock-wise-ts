@@ -61,6 +61,7 @@ export function Reports() {
           dataCriacao
         );
         console.log("Relatórios:", response);
+        console.log("Data formatada enviada:", dataCriacao);
         if (response) {
           console.log("Itens recebidos da API:", response);
           setReport(response.data);

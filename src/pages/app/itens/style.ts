@@ -10,6 +10,10 @@ export const ItensContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
+  gap: 3rem;
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 export const HeaderContainer = styled.header`

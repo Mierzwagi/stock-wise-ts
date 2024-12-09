@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SignInContainer = styled.div`
-  width: 66%;
+  width: 80%;
   height: 40%;
 
   @media (max-width: 1200px) {
@@ -49,6 +49,16 @@ export const Form = styled.form`
       border: 3px solid var(--purple-400);
     }
   }
+  
+  a{
+      color: var(--black);
+      font-size: 0.8rem;
+
+      &:hover{
+        color: var(--purple-400);
+        text-decoration: underline;
+      }
+    }
 `;
 
 export const SwitchContainer = styled.div`
@@ -56,6 +66,11 @@ export const SwitchContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  p{
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
 `;
 
 export const PasswordInput = styled.div`
@@ -67,3 +82,4 @@ export const PasswordInput = styled.div`
     width: 100%;
   }
 `;
+
