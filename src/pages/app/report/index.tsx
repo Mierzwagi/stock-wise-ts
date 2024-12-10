@@ -8,7 +8,6 @@ import {
   Sala,
 } from "../../../server/endpoints";
 import {
-  SelectInput,
   HeaderContainer,
   ListContainer,
   PaginationContainer,
@@ -16,15 +15,16 @@ import {
   ContainerInput,
 } from "./style";
 import { Pagination } from "../../../components/Pagination";
-import DatePicker from "react-datepicker";
+//import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./style.css";
+import Select, { StylesConfig } from "react-select";
 
 export function Reports() {
   const [salas, setSalas] = useState<Sala[]>([]);
   const [selectSala, setSelectSala] = useState<string>("");
   const [selectDateFirst] = useState<string>("");
-  const [selectDate, setSelectDate] = useState<Date | null>(null);
+  //const [selectDate, setSelectDate] = useState<Date | null>(null);
   const [report, setReport] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +88,7 @@ export function Reports() {
         setReport(response.data);
       } else {
         setReport([]);
-        setError("Não foi possível carregar os usuários.");
+        setError("Não foi possível carregar os relatórios.");
       }
     } catch (error) {
       const typedError = error as Error;
@@ -120,14 +120,51 @@ export function Reports() {
     return <p>Erro: {error}</p>;
   }
 
-  const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  /* const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log("sala selecionada", e.target.value);
     setSelectSala(e.target.value); //Atualiza de acordo com a sala selecionada
     setCurrentPage(1);
-  };
+  }; */
 
-  const handleDateChange = (date: Date | null) => {
+/*   const handleDateChange = (date: Date | null) => {
     setSelectDate(date);
+  }; */
+
+  const options = salas.map((sala) => ({
+    value: String(sala.localizacao),
+    label: sala.nome,
+  }));
+
+  const customStyles: StylesConfig<{ value: string; label: string }, false> = {
+    control: (base, state) => ({
+      ...base,
+      width: "100%",
+      backgroundColor: state.isFocused ? "#f0f8ff" : "#DFB6FF",
+      borderColor: state.isFocused ? "#9D4EDD" : "#ccc",
+      boxShadow: state.isFocused ? "0 0 5px rgba(0, 0, 0, 0.5)" : "none",
+      "&:hover": {
+        borderColor: "#9D4EDD",
+      },
+    }),
+    option: (base, state) => ({
+      ...base,
+      fontSize: "0.7rem",
+      padding: "0.5rem 1rem",
+      cursor: "pointer",
+      backgroundColor: state.isSelected
+        ? "#DFB6FF"
+        : state.isFocused
+        ? "#1a1022"
+        : "#fff",
+      color: state.isSelected ? "#fff" : "#000",
+      "&:hover": {
+        backgroundColor: "#DFB6FF",
+      },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#9D4EDD",
+    }),
   };
 
   return (
@@ -135,24 +172,26 @@ export function Reports() {
       <HeaderContainer>
         <h1>Relatórios</h1>
         <ContainerInput>
-          <SelectInput value={selectSala} onChange={handleSalaChange}>
-            <option value="" disabled selected>
-              Selecione uma Sala
-            </option>
-            {salas.map((sala) => (
-              <option key={sala.localizacao} value={sala.localizacao}>
-                {sala.nome}
-              </option>
-            ))}
-          </SelectInput>
-          <DatePicker
+        <Select
+          options={options}
+          styles={customStyles}
+          value={options.find((option) => option.value === selectSala)}
+          onChange={(selectedOption) => {
+            if (selectedOption) {
+              setSelectSala(String(selectedOption.value)); // Converte para string
+              setCurrentPage(1);
+            }
+          }}
+          placeholder="Selecione uma Sala"
+        />
+         {/*  <DatePicker
             className="custom-datepicker"
             placeholderText="Selecione uma data"
             selected={selectDate}
             onChange={handleDateChange}
             dateFormat="MM/YYYY"
             showMonthYearPicker
-          />
+          /> */}
         </ContainerInput>
       </HeaderContainer>
       <ListContainer>

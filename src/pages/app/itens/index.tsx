@@ -6,6 +6,9 @@ import { Pagination } from "../../../components/Pagination";
 import { ButtonRound } from "../../../components/button";
 import { ModalUpload } from "../../../components/modal/modalAnexo";
 
+import React from "react";
+import Select, { StylesConfig } from "react-select";
+
 import { Item, listItens, listSalas, Sala } from "../../../server/endpoints";
 
 import {
@@ -15,7 +18,6 @@ import {
   ItensContainer,
   ListContainer,
   PaginationContainer,
-  SelectInput,
 } from "./style";
 
 export function Itens() {
@@ -112,12 +114,12 @@ export function Itens() {
   }
 
   //Função para mudar a sala// eVentos que manipula elementos de seleção como <select>
-  const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+/*   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const salaId = e.target.value;
     console.log("sala selecionada", salaId);
     setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
     setCurrentPage(1); // Reseta a página atual ao mudar de sala
-  };
+  }; */
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -156,6 +158,43 @@ export function Itens() {
 
   const userRole = localStorage.getItem("authUser");
 
+  const options = salas.map((sala) => ({
+    value: String(sala.localizacao),
+    label: sala.nome,
+  }));
+
+  const customStyles: StylesConfig<{ value: string; label: string }, false> = {
+    control: (base, state) => ({
+      ...base,
+      width: "100%",
+      backgroundColor: state.isFocused ? "#f0f8ff" : "#DFB6FF",
+      borderColor: state.isFocused ? "#9D4EDD" : "#ccc",
+      boxShadow: state.isFocused ? "0 0 5px rgba(0, 0, 0, 0.5)" : "none",
+      "&:hover": {
+        borderColor: "#9D4EDD",
+      },
+    }),
+    option: (base, state) => ({
+      ...base,
+      fontSize: "0.7rem",
+      padding: "0.5rem 1rem",
+      cursor: "pointer",
+      backgroundColor: state.isSelected
+        ? "#DFB6FF"
+        : state.isFocused
+        ? "#1a1022"
+        : "#fff",
+      color: state.isSelected ? "#fff" : "#000",
+      "&:hover": {
+        backgroundColor: "#DFB6FF",
+      },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: "#9D4EDD",
+    }),
+  };
+
   return (
     <ItensContainer>
       <HeaderContainer>
@@ -174,7 +213,20 @@ export function Itens() {
           )}
         </IntensListContainer>
 
-        <SelectInput value={selectSala} onChange={handleSalaChange}>
+        <Select
+          options={options}
+          styles={customStyles}
+          value={options.find((option) => option.value === selectSala)}
+          onChange={(selectedOption) => {
+            if (selectedOption) {
+              setSelectSala(String(selectedOption.value)); // Converte para string
+              setCurrentPage(1);
+            }
+          }}
+          placeholder="Selecione uma Sala"
+        />
+
+        {/*  <SelectInput value={selectSala} onChange={handleSalaChange}>
           <option value="" disabled>
             Selecione uma Sala
           </option>
@@ -183,7 +235,7 @@ export function Itens() {
               {sala.nome}
             </option>
           ))}
-        </SelectInput>
+        </SelectInput> */}
       </HeaderContainer>
 
       <ListContainer>
@@ -203,8 +255,9 @@ export function Itens() {
           </ButtonRound>
         </PaginationContainer>
       )}
-      {userRole ===
-        "ADMIN" && (<ModalUpload isOpen={open} handleClose={handleClose} />)}
+      {userRole === "ADMIN" && (
+        <ModalUpload isOpen={open} handleClose={handleClose} />
+      )}
     </ItensContainer>
   );
 }

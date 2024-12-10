@@ -10,7 +10,7 @@ export const ItensContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  gap: 3rem;
+  gap: 1rem;
   @media (max-width: 768px) {
     gap: 1rem;
   }
@@ -77,7 +77,7 @@ export const IntensListContainer = styled.div`
   align-items: center;
   justify-content: start;
   gap: 10rem;
-  width: 100%;
+  
 
   h3 {
     font-size: 1.2rem;

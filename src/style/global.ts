@@ -51,5 +51,17 @@ export const GlobalStyle = createGlobalStyle`
         
     }
 
+    .css-1nmdiq5-menu {
+    width: auto !important;
+    }
+
+    .css-1l6chkb-option {
+    background-color: #DFB6FF !important;
+}
+
+.css-1l6chkb-option:hover {
+    background-color: #DFB6FF !important;
+}
+
 
 `;
