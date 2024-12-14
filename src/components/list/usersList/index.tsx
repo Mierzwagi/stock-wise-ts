@@ -19,6 +19,13 @@ type UserProps = {
   updateUserRole: (userId: number, newRole: string) => void;
 };
 
+const headers = [
+  { label: "NOME", component: <HeaderId><strong>NOME</strong></HeaderId> },
+  { label: "E-MAIL", component: <HeaderTitleDenominacao><strong>E-MAIL</strong></HeaderTitleDenominacao> },
+  { label: "NÍVEL", component: <HeaderId><strong>NÍVEL</strong></HeaderId> },
+  { label: "IMAGEM", component: <IMG /> },
+];
+
 export const ListUser: React.FC<UserProps> = ({
   users,
   deletUser,
@@ -40,16 +47,7 @@ export const ListUser: React.FC<UserProps> = ({
   return (
     <ItensContainer>
       <HeaderContainer>
-        <HeaderId>
-          <strong>Nome</strong>
-        </HeaderId>
-        <HeaderTitleDenominacao>
-          <strong>E-MAIL</strong>
-        </HeaderTitleDenominacao>
-        <HeaderId>
-          <strong>NÍVEL</strong>
-        </HeaderId>
-        <IMG></IMG>
+        {headers.map((header) => header.component)}
       </HeaderContainer>
 
       {users.map((user) => (

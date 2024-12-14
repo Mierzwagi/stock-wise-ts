@@ -58,23 +58,23 @@ export const HeaderSection = styled.div`
 export const SectionAboutUs = styled.section`
   width: 100%;
   background-image: url(${ImgFundoCell});
-  background-size: cover; /* Faz a imagem cobrir o container */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita repetição da imagem */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
   h2 {
     font-size: 2rem;
-    color: #000; /* Texto preto */
+    color: #000;
     margin-bottom: 1rem;
   }
 
   p {
     font-size: 1rem;
     line-height: 1.6;
-    color: #000; /* Texto preto */
+    color: #000; 
   }
 `;
 export const DivAboutUs = styled.div`
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: sombra leve */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 `;
 export const DivImgAbout = styled.div``;
 export const SectionProblem = styled.div`

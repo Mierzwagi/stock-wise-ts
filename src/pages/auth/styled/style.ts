@@ -33,7 +33,6 @@ export const Form = styled.form`
 
 
   button {
-    //background-image: var(--gradient);
     background-color: var(--purple-300);
     width: 6rem;
     height: 2.4rem;

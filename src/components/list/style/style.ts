@@ -8,7 +8,6 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  /* gap: 2rem; */
   justify-content: space-between;
 `;
 
@@ -51,7 +50,6 @@ export const ListContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 2.4rem;
-  /* gap: 2rem; */
   justify-content: space-between;
 
   button {

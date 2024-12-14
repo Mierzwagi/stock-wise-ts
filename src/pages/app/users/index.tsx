@@ -14,13 +14,13 @@ export function Users() {
   const fetchUsers = useCallback(async (page: number = 1) => {
     setLoading(true);
     try {
-      const response = await usersRequest(page.toString()); //Requeisição para API, passando a página inícial
+      const response = await usersRequest(page.toString());
       if (response) {
         console.log("Usuários recebidos da API:", response);
-        setUsers(response.data); //Lista os users
+        setUsers(response.data);
         setTotalPages(response.totalPages);
       } else {
-        setUsers([]); //Limpar a lista caso não receba
+        setUsers([]);
         setError("Não foi possível carregar os usuários.");
       }
     } catch (error) {
@@ -40,7 +40,7 @@ export function Users() {
         console.log(updateUsers);
         console.log(newRole);
         
-        setUsers(updateUsers); //Setando a lista de users
+        setUsers(updateUsers);
       } catch (error) {
         const typedError = error as Error;
         setError(typedError.message);

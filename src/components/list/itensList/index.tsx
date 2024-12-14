@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { FaImages } from "react-icons/fa6";
 import { Item } from "../../../server/endpoints";
 import ImgWelcome from "../../../assets/images/img-welcome1.svg";
@@ -15,16 +16,28 @@ import {
   ListContainer,
   WelcomeContainer,
 } from "../style/style";
-import { useMemo, useState } from "react";
 import { ModalImage } from "../../modal/modalImg";
 
-//Recebendo a lista de Itens por Props
+// Propriedades do componente
 interface ItensProps {
   itens: Item[];
 }
 
-//React Functional Component onde recebe propriedades
 export const ListItens: React.FC<ItensProps> = ({ itens }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
+
+  const approved = window.innerWidth <= 1200;
+
+  // Ordenar itens por ID
+  const orderItens = useMemo(() => {
+    return [...itens].sort((a, b) => {
+      return a.externalId - b.externalId;
+    });
+  }, [itens]);
+
+
+  // Formatar data para o formato brasileiro
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("pt-BR", {
@@ -32,17 +45,6 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     });
   };
 
-  const [open, setOpen] = useState(false);
-  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
-  const approved = window.innerWidth <= 1200;
-
-  const orderItens = useMemo(() => {
-    return [...itens].sort((a, b) => {
-      return a.externalId - b.externalId;
-    });
-  }, [itens]);
-
-  console.log(orderItens.map((item) => item.externalId));
 
   //Modal
   const handleOpen = (imgUrl: string) => {
@@ -54,6 +56,8 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     setSelectedImageUrl(null);
   };
 
+
+  // Renderizar mensagem de boas-vindas se não houver itens
   if (!Array.isArray(itens) || itens.length === 0) {
     return (
       <WelcomeContainer>
@@ -65,19 +69,18 @@ export const ListItens: React.FC<ItensProps> = ({ itens }) => {
     );
   }
 
+    // Renderizar cabeçalhos dinamicamente
+    const headers = [
+      { label: "ID", component: <HeaderId><strong>ID</strong></HeaderId> },
+      { label: "DENOMINAÇÃO", component: <HeaderTitleDenominacao><strong>DENOMINAÇÃO</strong></HeaderTitleDenominacao> },
+      { label: "INCORPORAÇÃO", component: <HeaderIncorporacao><strong>INCORPORAÇÃO</strong></HeaderIncorporacao> },
+      { label: "IMAGEM", component: <IMG /> },
+    ];
+
   return (
     <ItensContainer>
       <HeaderContainer>
-        <HeaderId>
-          <strong>ID</strong>
-        </HeaderId>
-        <HeaderTitleDenominacao>
-          <strong>DENOMINAÇÃO</strong>
-        </HeaderTitleDenominacao>
-        <HeaderIncorporacao>
-          <strong>INCORPORAÇÃO</strong>
-        </HeaderIncorporacao>
-        <IMG></IMG>
+        {headers.map((header) => header.component)}
       </HeaderContainer>
 
       {orderItens.map((item) => (

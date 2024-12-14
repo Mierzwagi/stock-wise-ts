@@ -14,10 +14,7 @@ import { Report } from "../../../server/endpoints";
 interface ReportsProps {
   reports: Report[];
 }
-
 export const ListReports: React.FC<ReportsProps> = ({ reports }) => {
-  //  const [allReports, setAllReports] = useState<Report[] | null>(null);
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("pt-BR", {
@@ -25,32 +22,50 @@ export const ListReports: React.FC<ReportsProps> = ({ reports }) => {
     });
   };
 
-  return (
-    <ItensContainer>
-      <HeaderContainer>
+  const headers = [
+    {
+      label: "Data",
+      component: (
         <HeaderId>
           <strong>Data</strong>
         </HeaderId>
+      ),
+    },
+    {
+      label: "Relatório",
+      component: (
         <HeaderTitleDenominacao>
           <strong>Relatório</strong>
         </HeaderTitleDenominacao>
-        <IMG></IMG>
+      ),
+    },
+    { label: "Ação", component: <IMG /> },
+  ];
+
+  // Função para renderizar relatórios
+  const renderReports = () =>
+    reports.map((report) => (
+      <ListContainer key={report.id}>
+        <DivId>
+          <strong>{formatDate(report.dataCriacao)}</strong>
+        </DivId>
+        <DenominacaoDiv>
+          <strong>{report.nome}</strong>
+        </DenominacaoDiv>
+        <a href={report.url} target="_blank" download>
+          <FaFilePdf size={30} color="#5907AF" />
+        </a>
+      </ListContainer>
+    ));
+
+  return (
+    <ItensContainer>
+      <HeaderContainer>
+        {headers.map((header) => header.component)}
       </HeaderContainer>
 
-      {reports?.length > 0 ? (
-        reports.map((report) => (
-          <ListContainer key={report.id}>
-            <DivId>
-              <strong>{formatDate(report.dataCriacao)}</strong>
-            </DivId>
-            <DenominacaoDiv>
-              <strong>{report.nome}</strong>
-            </DenominacaoDiv>
-            <a href={report.url} target="_blank" download>
-              <FaFilePdf size={30} color="#5907AF" />
-            </a>
-          </ListContainer>
-        ))
+      {reports.length > 0 ? (
+        renderReports()
       ) : (
         <p>Nenhum relatório disponível</p>
       )}

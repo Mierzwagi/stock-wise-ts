@@ -1,5 +1,3 @@
-//import { Outlet } from "react-router-dom";
-
 import {
   AuthContainer,
   AuthContent,
@@ -8,14 +6,9 @@ import {
   SignContainer,
 } from "./style";
 import BackImage from "../../../assets/images/img-background-container.svg";
-
 import { Outlet } from "react-router-dom";
-//import test1  from '../../../assets/images/test1.svg'
-//import test2 from '../../../assets/images/test2.svg'
 
 export default function Auth() {
-
-
   return (
     <SignContainer>
       <BackgroundDivContainer>

@@ -14,7 +14,7 @@ export function usePagination({ currentPage, totalPages }: usePaginationProps) {
     const startPage = Math.max(1, currentPage - maxVisiblePages); // Página inicial não podendo ser menor que 1
     const lastPage = Math.min(totalPages, currentPage + maxVisiblePages); //Página final não podendo ser menor que o total
 
-    //Arrya e páginas
+    //Array e páginas
     return Array.from(
       { length: lastPage - startPage + 1 }, // A diferença entra a página inicial e final é o tamanho da array
       (_, index) => startPage + index

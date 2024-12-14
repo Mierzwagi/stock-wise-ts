@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   SignInContainer,
   Form,
@@ -6,18 +7,12 @@ import {
   SwitchContainer,
 } from "../styled/style";
 import { ToggleButton } from "../../../components/switch";
-import { useNavigate } from "react-router-dom";
 import { signIn } from "../../../server/endpoints";
 
 export function SignIn() {
-  const [signup, setSignup] = useState({
-    email: "",
-    senha: "",
-  });
+  const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [loading, setLoading] = useState(false);
-  const [, setError] = useState<string | null>(null);
   const [isOn, setIsOn] = useState(true);
-
   const navigate = useNavigate();
 
   //Trocar para signin para rota signup
@@ -26,32 +21,27 @@ export function SignIn() {
     navigate("/signup");
   };
 
+  // eVento para manipular o input
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+  };
+
   // Criando um eVento para o formulário assim que for preenchido
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await signIn(signup.email, signup.senha);
-      console.log("Resposta do servidor:", response);
-
+      const response = await signIn(credentials.email, credentials.senha);
       localStorage.setItem("authToken", response.token);
       localStorage.setItem("authUser", response.user.role);
-
       navigate("/itens");
     } catch (error) {
-      const typedError = error as Error;
-      setError(typedError.message);
-      alert("Erro ao fazer o login");
+      alert("Erro ao fazer o login: " + (error as Error).message);
     } finally {
       setLoading(false);
     }
-  };
-
-  // eVento para manipular o input
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setSignup((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -68,7 +58,7 @@ export function SignIn() {
           type="text"
           name="email"
           placeholder="Email"
-          value={signup.email}
+          value={credentials.email}
           onChange={handleChange}
           required
         />
@@ -78,7 +68,7 @@ export function SignIn() {
           type="password"
           name="senha"
           placeholder="Senha"
-          value={signup.senha}
+          value={credentials.senha}
           onChange={handleChange}
           required
         />

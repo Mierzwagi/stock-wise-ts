@@ -120,12 +120,6 @@ export function Reports() {
     return <p>Erro: {error}</p>;
   }
 
-  /* const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log("sala selecionada", e.target.value);
-    setSelectSala(e.target.value); //Atualiza de acordo com a sala selecionada
-    setCurrentPage(1);
-  }; */
-
 /*   const handleDateChange = (date: Date | null) => {
     setSelectDate(date);
   }; */

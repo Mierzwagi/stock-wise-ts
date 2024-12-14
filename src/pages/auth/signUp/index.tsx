@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   SignInContainer,
   Form,
@@ -6,26 +7,26 @@ import {
   SwitchContainer,
 } from "../styled/style";
 import { ToggleButton } from "../../../components/switch";
-import { useNavigate } from "react-router-dom";
 import { signUp } from "../../../server/endpoints";
 
 export function SignUp() {
-  console.log("Componente SignUp renderizado");
-
   const [userData, setUserData] = useState({
     nome: "",
     email: "",
     senha: "",
   });
   const [loading, setLoading] = useState(false);
-  const [, setError] = useState<string | null>(null);
-  const [isOn, setIsOn] = useState(false);
-
+  const [isOn, setIsOn] = useState(false);  
   const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsOn((prev) => !prev);
     navigate("/");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,19 +36,13 @@ export function SignUp() {
     try {
       const response = await signUp(userData);
       console.log("Resposta do servidor:", response);
+      alert("Usuário cadastrado com sucesso!");
       navigate("/");
     } catch (error) {
-      const typedError = error as Error;
-      setError(typedError.message);
-      alert("Erro ao cadastrar usuário");
+      alert("Erro ao cadastrar usuário: " + (error as Error).message);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (

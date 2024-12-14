@@ -1,8 +1,4 @@
-//import { Toggle } from "./style";
 import { Switch } from "@mui/material";
-//import { SwitchStyled } from "./style";
-
-
 
 interface ToggleButtonProps {
     isOn: boolean;

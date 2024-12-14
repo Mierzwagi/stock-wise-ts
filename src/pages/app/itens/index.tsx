@@ -113,14 +113,6 @@ export function Itens() {
     return <p>Erro: {error}</p>;
   }
 
-  //Função para mudar a sala// eVentos que manipula elementos de seleção como <select>
-/*   const handleSalaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const salaId = e.target.value;
-    console.log("sala selecionada", salaId);
-    setSelectSala(salaId); //Atualiza de acordo com a sala selecionada
-    setCurrentPage(1); // Reseta a página atual ao mudar de sala
-  }; */
-
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
 
@@ -140,10 +132,6 @@ export function Itens() {
         isIdSearch ? query : ""
       );
 
-      console.log("RESPONSE ########################");
-      console.log(response);
-
-      // if (response.salaId === selectSala) {
       setItens(response.data); // Atualiza para exibir apenas o item buscado.
     } catch (error) {
       console.error("Erro ao buscar item pelo nome:", error);
@@ -163,6 +151,8 @@ export function Itens() {
     label: sala.nome,
   }));
 
+
+//Estilização select
   const customStyles: StylesConfig<{ value: string; label: string }, false> = {
     control: (base, state) => ({
       ...base,
@@ -225,17 +215,6 @@ export function Itens() {
           }}
           placeholder="Selecione uma Sala"
         />
-
-        {/*  <SelectInput value={selectSala} onChange={handleSalaChange}>
-          <option value="" disabled>
-            Selecione uma Sala
-          </option>
-          {salas.map((sala) => (
-            <option key={sala.localizacao} value={sala.localizacao}>
-              {sala.nome}
-            </option>
-          ))}
-        </SelectInput> */}
       </HeaderContainer>
 
       <ListContainer>

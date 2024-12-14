@@ -7,8 +7,6 @@ interface SidebarProps {
   onOptionSelect?: () => void;
 }
 
-//Coverte a string e acessar a propriedade role do user
-
 export function Sidebar({ onOptionSelect }: SidebarProps) {
   const userRole = localStorage.getItem("authUser");
 

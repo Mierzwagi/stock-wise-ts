@@ -38,9 +38,6 @@ export const listItens = async (
     }
   );
   
- /*  const response = await api.get(
-    `/salas/${localizacao}/itens?page=${page}&limit=${itemsPerPage}&search=${nome}`
-  ); */
   return {
     data: response.data.data, // Itens
     totalItems: response.data.totalItems, // Total de itens
@@ -50,7 +47,6 @@ export const listItens = async (
 };
 
 // ==== SALAS ====
-
 export interface Sala {
   id: number;
   localizacao: number;
@@ -70,15 +66,12 @@ export const listSalas = async (): Promise<Sala[]> => {
       },
     }
   );
-
-  /* const response = await api.get(`/salas`); */
   return response.data;
 
   
 };
 
 //==== AUTH ====
-
 export interface SignUpBody {
   nome: string;
   email: string;
@@ -102,16 +95,12 @@ export async function signUp({ nome, email, senha }: SignUpBody) {
 }
 
 export const signIn = async (email: string, senha: string) => {
-  /* pq ce colocou a rota de login com get wuaaaa */
   const response = await api.post(`/auth/login`, { email, senha });
   
   return response.data;
-
-
 };
 
 //==== USER ====
-
 export interface User {
   id: number;
   nome: string;
@@ -131,8 +120,6 @@ export const usersRequest = async (page: string): Promise<Pageable<User>> => {
       },
     }
   );
-
-  //const response = await api.get(`/users?page=${page}`);
   return response.data;
 };
 
@@ -152,8 +139,6 @@ export const usersRoleUpdate = async (
       },
     }
   );
-
-  //const response = await api.patch(`/users/${id}`, { role: newRole });
   return response.data;
 };
 
@@ -169,9 +154,6 @@ export const usersDelet = async (id: number): Promise<void> => {
       },
     }
   );
-
-  //const response = await api.delete(`/users/${id}`);
-
   return response.data;
 };
 
@@ -225,9 +207,6 @@ export const listReports = async (
       },
     }
   );
-  /* const response = await api.get(
-    `/salas/${localizacao}/relatorios?page=${page}&dataCriacao=${dataCriacao}`
-  ); */
   return {
     data: response.data.data,
     totalItems: response.data.totalItems,
@@ -248,8 +227,5 @@ export const allReports = async (): Promise<Pageable<Report>> => {
       },
     }
   );
-
-  //const response = await api.get(`/relatorios`);
-
   return response.data;
 };

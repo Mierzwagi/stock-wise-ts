@@ -99,9 +99,6 @@ export const AuthContent = styled.div`
       font-size: 3rem;
       margin-bottom: 20rem;
     }
-
-    
   }
 `;
 
-//align-self: flex-end;

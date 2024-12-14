@@ -1,8 +1,8 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import { BoxStyled } from "../style";
-import { useState } from "react";
 import { uploadFile } from "../../../server/endpoints";
 import { FaUpload } from "react-icons/fa6";
 
@@ -60,7 +60,6 @@ export function ModalUpload({ isOpen, handleClose }: ModalProps) {
           />
         </label>
 
-        {/* Exibe o nome do arquivo selecionado */}
         {selectedFile && (
           <Typography sx={{ mt: 2 }}>
             Arquivo selecionado: {selectedFile.name}
